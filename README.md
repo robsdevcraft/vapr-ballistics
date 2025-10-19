@@ -1,12 +1,16 @@
 ![Image of VAPR Ballistics logo](/frontend/public/vapr-ballistics.svg "VAPR logo")
 
-# VAPR Ballistics Calculator
+# VAPR Ballistics
 
-A production-ready web application for advanced ballistic trajectory calculations using the [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) Python package.
+Free and open source ballistic calculator
+
+This repository consists of the following:
+- A fullstack application (main branch) using the [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) Python package in a Fast API app as the /backend and Next.js running in the /frontend.
+- A client only that can run in the browser using the [js-ballistics](https://github.com/o-murphy/js-ballistics) NPM package that can deploy wherever static assets can be hosted.
 
 ## Features
 
-- **Advanced Ballistics Calculations**: Powered by py-ballisticcalc for accurate trajectory modeling
+- **Advanced Ballistics Calculations**: Powered by py-ballisticcalc/js-ballistics for accurate trajectory modeling
 - **Modern Web Interface**: Built with Next.js 15+ and shadcn/ui components
 - **Interactive Charts**: Visualize trajectory data with responsive charts
 - **Form Validation**: Comprehensive input validation using Zod
@@ -34,10 +38,10 @@ A production-ready web application for advanced ballistic trajectory calculation
 
 ### Prerequisites
 
-- Python 3.11+
 - Node.js 18+
+- Python 3.11+ (only required for fullstack)
 - Docker (optional)
-
+  
 ### Development Setup
 
 1. **Clone the repository**
@@ -362,14 +366,14 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) - Excellent ballistics calculation library
+- Huge thank you to [o-murphy](https://github.com/o-murphy) for building and maintaining both [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) and [js-ballistics](https://github.com/o-murphy/js-ballistics) - The open source ballistics calculation libraries used in this software.
 - [shadcn/ui](https://ui.shadcn.com/) - Beautiful UI components
 - [FastAPI](https://fastapi.tiangolo.com/) - Modern web framework
 - [Next.js](https://nextjs.org/) - React framework
 
 ## Support
 
-For support, please open an issue on GitHub or contact [your-email@example.com].
+For support, please start a discussion post.
 
 ---
 
