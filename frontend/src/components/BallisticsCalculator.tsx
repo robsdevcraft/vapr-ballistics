@@ -601,7 +601,7 @@ export default function BallisticsCalculator() {
                             <Tooltip 
                               formatter={(value, name) => [Number(value).toFixed(2), name]}
                               contentStyle={{
-                                backgroundColor: isDark ? '#1f2937' : '#ffffff',
+                                backgroundColor: isDark ? '#0a0a0a' : '#ffffff',
                                 border: `1px solid ${gridColor}`,
                                 borderRadius: '6px',
                                 color: isDark ? '#ffffff' : '#000000'
