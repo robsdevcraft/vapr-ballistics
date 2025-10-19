@@ -17,15 +17,27 @@ This repository consists of the following:
 - **Production Ready**: Docker containerization, CI/CD, and security best practices
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-## Tech Stack
+## Fullstack (main branch)
 
 ### Backend
 - **FastAPI**: Modern, fast web framework for building APIs
-- **py-ballisticcalc**: Professional ballistics calculation library
+- **py-ballisticcalc**: ballistics calculation library
 - **Pydantic**: Data validation and settings management
 - **Uvicorn**: ASGI server for production deployment
 
 ### Frontend
+- **Next.js 15**: React framework with App Router
+- **TypeScript**: Type-safe development
+- **shadcn/ui**: Modern UI components built on Radix UI
+- **Tailwind CSS**: Utility-first CSS framework
+- **Recharts**: Responsive chart library
+- **React Hook Form**: Performant forms with easy validation
+- **Zod**: TypeScript-first schema validation
+
+## Client only (client feature branch)
+
+### Frontend
+- **js-ballistics**: ballistics calculation library
 - **Next.js 15**: React framework with App Router
 - **TypeScript**: Type-safe development
 - **shadcn/ui**: Modern UI components built on Radix UI
@@ -352,7 +364,7 @@ ballistic-calculator/
    - Check for port conflicts
    - Verify Docker Compose file syntax
 
-### Performance Optimization
+### Performance Optimization in development
 
 - Enable caching for API responses
 - Optimize Docker images for production
@@ -362,19 +374,26 @@ ballistic-calculator/
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/robsdevcraft/vapr-ballistics/blob/main/LICENSE) file for details.
 
 ## Acknowledgments
 
-- Huge thank you to [o-murphy](https://github.com/o-murphy) for building and maintaining both [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) and [js-ballistics](https://github.com/o-murphy/js-ballistics) - The open source ballistics calculation libraries used in this software.
-- [shadcn/ui](https://ui.shadcn.com/) - Beautiful UI components
-- [FastAPI](https://fastapi.tiangolo.com/) - Modern web framework
+- Huge thank you to [o-murphy](https://github.com/o-murphy) for building and maintaining both [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) and [js-ballistics](https://github.com/o-murphy/js-ballistics) - the open source ballistics calculation libraries used in this software.
+- [shadcn/ui](https://ui.shadcn.com/) - The web standard for UI components
+- [FastAPI](https://fastapi.tiangolo.com/) - Modern web API framework
 - [Next.js](https://nextjs.org/) - React framework
 
-## Support
+## Help
 
-For support, please start a discussion post.
+For ideas, suggestions, or overall discussion for this repo please start create a post in [discussions](https://github.com/robsdevcraft/vapr-ballistics/discussions).
 
----
 
-**Note**: This application is for educational and recreational purposes. Always verify calculations with additional sources for critical applications.
+## Disclaimer
+
+This application is for educational and recreational purposes ONLY. Verify incrementally at shorter ranges first and always verify calculations with additional sources for direct applications. You own every round that leaves your muzzle. 
+
+## Maintainer
+
+USMC OEF Infantry Veteran, PRS + IDPA Competitor, USCCA Certified Instructor, Hunter and IT Nerd [Robert Anderson](https://github.com/robsdevcraft). These tools should be free and most importantly easy to use. I am making the best version I can through VAPR Ballistics. I hope you get a chance to try it and provide feeback to make this the best tool it can possibly be.
+
+VAPR - leave no trace...
