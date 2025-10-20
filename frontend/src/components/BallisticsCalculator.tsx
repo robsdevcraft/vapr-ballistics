@@ -28,7 +28,7 @@ import { toast } from 'sonner';
 import { useBallisticsCalculator } from '@/hooks/useBallisticsCalculator';
 import type { CalculationResponse } from '@/lib/ballistics';
 
-// Validation schema
+// ZOD Validation schema
 const formSchema = z.object({
   weapon: z.object({
     sight_height: z.number().min(0.1).max(10.0),
@@ -67,7 +67,26 @@ export default function BallisticsCalculator() {
   const isDark = theme === 'dark';
   const gridColor = isDark ? '#374151' : '#e5e7eb';
   const axisColor = isDark ? '#9ca3af' : '#6b7280';
+  
+  // Tooltip styles matching globals.css theme colors
+  const tooltipStyle = {
+    backgroundColor: isDark ? '#343434' : '#ffffff',
+    border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid #ebebeb',
+    borderRadius: '8px',
+    padding: '12px',
+    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+  };
 
+  const tooltipItemStyle = {
+    color: isDark ? '#fafafa' : '#252525',
+  };
+
+  const tooltipLabelStyle = {
+    color: isDark ? '#fafafa' : '#252525',
+    fontWeight: 600,
+  };
+
+  // Calculator form
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -97,6 +116,7 @@ export default function BallisticsCalculator() {
     },
   });
 
+  // Form submit actions
   const onSubmit = async (data: FormData) => {
     setValidationMessage(null);
     resetError();
@@ -119,6 +139,7 @@ export default function BallisticsCalculator() {
     }
   };
 
+  // Rechart data properties
   const formatChartData = () => {
     if (!results?.trajectory) return [];
 
@@ -570,7 +591,7 @@ export default function BallisticsCalculator() {
                   <CardHeader>
                     <CardTitle>Trajectory Charts</CardTitle>
                     <CardDescription>
-                      View bullet drop and windage over distance
+                      View bullet drop and windage adjustments over distance (Windage: R = Adjust Right, L = Adjust Left)
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -600,12 +621,9 @@ export default function BallisticsCalculator() {
                             />
                             <Tooltip 
                               formatter={(value, name) => [Number(value).toFixed(2), name]}
-                              contentStyle={{
-                                backgroundColor: isDark ? '#0a0a0a' : '#ffffff',
-                                border: `1px solid ${gridColor}`,
-                                borderRadius: '6px',
-                                color: isDark ? '#ffffff' : '#000000'
-                              }}
+                              contentStyle={tooltipStyle}
+                              itemStyle={tooltipItemStyle}
+                              labelStyle={tooltipLabelStyle}
                             />
                             <Line
                               type="monotone"
@@ -644,12 +662,9 @@ export default function BallisticsCalculator() {
                             />
                             <Tooltip 
                               formatter={(value) => [Number(value).toFixed(2), 'Drop (mils)']}
-                              contentStyle={{
-                                backgroundColor: isDark ? '#ffffff' : '#ffffff',
-                                border: `1px solid ${gridColor}`,
-                                borderRadius: '6px',
-                                color: isDark ? '#ffffff' : '#ffffff'
-                              }}
+                              contentStyle={tooltipStyle}
+                              itemStyle={tooltipItemStyle}
+                              labelStyle={tooltipLabelStyle}
                             />
                             <Line
                               type="monotone"
@@ -676,17 +691,24 @@ export default function BallisticsCalculator() {
                               tick={{ fill: axisColor }}
                             />
                             <YAxis 
-                              label={{ value: 'Windage (mils)', angle: -90, position: 'insideLeft', fill: axisColor }}
+                              label={{ value: 'Windage Adjustment (L/R)', angle: -90, position: 'insideLeft', fill: axisColor }}
                               tick={{ fill: axisColor }}
+                              tickFormatter={(value) => {
+                                const absValue = Math.abs(value);
+                                if (absValue === 0) return '0';
+                                return value > 0 ? `${absValue.toFixed(1)} R` : `${absValue.toFixed(1)} L`;
+                              }}
                             />
                             <Tooltip 
-                              formatter={(value) => [Number(value).toFixed(2), 'Windage (mils)']}
-                              contentStyle={{
-                                backgroundColor: isDark ? '#1f2937' : '#ffffff',
-                                border: `1px solid ${gridColor}`,
-                                borderRadius: '6px',
-                                color: isDark ? '#ffffff' : '#000000'
+                              formatter={(value: number) => {
+                                const absValue = Math.abs(value);
+                                if (absValue === 0) return ['0 mils', 'Adjustment'];
+                                const direction = value > 0 ? 'R' : 'L';
+                                return [`${absValue.toFixed(2)} mils ${direction}`, 'Adjustment'];
                               }}
+                              contentStyle={tooltipStyle}
+                              itemStyle={tooltipItemStyle}
+                              labelStyle={tooltipLabelStyle}
                             />
                             <Line
                               type="monotone"
@@ -707,7 +729,7 @@ export default function BallisticsCalculator() {
                   <CardHeader>
                     <CardTitle>Trajectory Table</CardTitle>
                     <CardDescription>
-                      Detailed trajectory data points
+                      Detailed trajectory data points (Windage: R = Adjust Right, L = Adjust Left to compensate for wind)
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -724,18 +746,26 @@ export default function BallisticsCalculator() {
                           </TableRow>
                         </TableHeader>
                         <TableBody>
-                          {results.trajectory.map((point, index) => (
-                            <TableRow key={index}>
-                              <TableCell className="font-medium">
-                                {point.distance.toFixed(0)} yd
-                              </TableCell>
-                              <TableCell>{point.drop_adjustment.toFixed(2)} mils</TableCell>
-                              <TableCell>{point.windage_adjustment.toFixed(2)} mils</TableCell>
-                              <TableCell>{point.velocity.toFixed(0)} fps</TableCell>
-                              <TableCell>{point.energy.toFixed(0)} ft-lb</TableCell>
-                              <TableCell>{point.time.toFixed(3)} s</TableCell>
-                            </TableRow>
-                          ))}
+                          {results.trajectory.map((point, index) => {
+                            const absWindage = Math.abs(point.windage_adjustment);
+                            const windageDirection = point.windage_adjustment > 0 ? 'R' : point.windage_adjustment < 0 ? 'L' : '';
+                            const windageDisplay = absWindage === 0 
+                              ? '0 mils' 
+                              : `${absWindage.toFixed(2)} mils ${windageDirection}`;
+                            
+                            return (
+                              <TableRow key={index}>
+                                <TableCell className="font-medium">
+                                  {point.distance.toFixed(0)} yd
+                                </TableCell>
+                                <TableCell>{point.drop_adjustment.toFixed(2)} mils</TableCell>
+                                <TableCell>{windageDisplay}</TableCell>
+                                <TableCell>{point.velocity.toFixed(0)} fps</TableCell>
+                                <TableCell>{point.energy.toFixed(0)} ft-lb</TableCell>
+                                <TableCell>{point.time.toFixed(3)} s</TableCell>
+                              </TableRow>
+                            );
+                          })}
                         </TableBody>
                       </Table>
                     </div>
