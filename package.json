@@ -1,0 +1,21 @@
+{
+  "name": "vapr-ballistics",
+  "version": "1.0.0-monorepo",
+  "private": true,
+  "description": "Monorepo for VAPR Ballistics Calculator - FastAPI fullstack and client-only variants",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3"
+  },
+  "packageManager": "pnpm@10.18.1",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
