@@ -13,7 +13,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { Crosshair, Target, Wind, Cloud, Settings, AlertCircle } from 'lucide-react';
+import { Crosshair, Target, Wind, Cloud, Settings, AlertCircle, Download } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -150,6 +150,51 @@ export default function BallisticsCalculator() {
       velocity: point.velocity,
       energy: point.energy,
     }));
+  };
+
+  // Export trajectory data to CSV
+  const exportToCSV = () => {
+    if (!results?.trajectory) return;
+
+    // CSV headers
+    const headers = ['Distance (yd)', 'Drop (mils)', 'Windage (mils)', 'Velocity (fps)', 'Energy (ft-lb)', 'Time (s)'];
+    
+    // CSV rows
+    const rows = results.trajectory.map((point) => {
+      const absWindage = Math.abs(point.windage_adjustment);
+      const windageDirection = point.windage_adjustment > 0 ? ' R' : point.windage_adjustment < 0 ? ' L' : '';
+      const windageValue = absWindage === 0 ? '0' : `${absWindage.toFixed(2)}${windageDirection}`;
+      
+      return [
+        point.distance.toFixed(0),
+        point.drop_adjustment.toFixed(2),
+        windageValue,
+        point.velocity.toFixed(0),
+        point.energy.toFixed(0),
+        point.time.toFixed(3),
+      ];
+    });
+
+    // Combine headers and rows
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.join(','))
+    ].join('\n');
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `ballistics_trajectory_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    toast.success('Trajectory data exported to CSV');
   };
 
   return (
@@ -607,12 +652,12 @@ export default function BallisticsCalculator() {
                         <ResponsiveContainer width="100%" height={400}>
                           <LineChart 
                             data={formatChartData()}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 70 }}
                           >
                             <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
                             <XAxis 
                               dataKey="distance" 
-                              label={{ value: 'Distance (yards)', position: 'insideBottom', offset: -15, fill: axisColor }}
+                              label={{ value: 'Distance (yards)', position: 'insideBottom', offset: -10, fill: axisColor }}
                               tick={{ fill: axisColor }}
                             />
                             <YAxis 
@@ -648,12 +693,12 @@ export default function BallisticsCalculator() {
                         <ResponsiveContainer width="100%" height={400}>
                           <LineChart 
                             data={formatChartData()}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 70 }}
                           >
                             <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
                             <XAxis 
                               dataKey="distance" 
-                              label={{ value: 'Distance (yards)', position: 'insideBottom', offset: -15, fill: axisColor }}
+                              label={{ value: 'Distance (yards)', position: 'insideBottom', offset: -10, fill: axisColor }}
                               tick={{ fill: axisColor }}
                             />
                             <YAxis 
@@ -682,16 +727,16 @@ export default function BallisticsCalculator() {
                         <ResponsiveContainer width="100%" height={400}>
                           <LineChart 
                             data={formatChartData()}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 70 }}
                           >
                             <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
                             <XAxis 
                               dataKey="distance" 
-                              label={{ value: 'Distance (yards)', position: 'insideBottom', offset: -15, fill: axisColor }}
+                              label={{ value: 'Distance (yards)', position: 'insideBottom', offset: -10, fill: axisColor }}
                               tick={{ fill: axisColor }}
                             />
                             <YAxis 
-                              label={{ value: 'Windage Adjustment (L/R)', angle: -90, position: 'insideLeft', fill: axisColor }}
+                              label={{ value: 'Windage (Mils L/R)', angle: -90, position: 'insideLeft', fill: axisColor }}
                               tick={{ fill: axisColor }}
                               tickFormatter={(value) => {
                                 const absValue = Math.abs(value);
@@ -727,10 +772,23 @@ export default function BallisticsCalculator() {
                 {/* Trajectory Table */}
                 <Card>
                   <CardHeader>
-                    <CardTitle>Trajectory Table</CardTitle>
-                    <CardDescription>
-                      Detailed trajectory data points (Windage: R = Adjust Right, L = Adjust Left to compensate for wind)
-                    </CardDescription>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle>Trajectory Table</CardTitle>
+                        <CardDescription>
+                          Detailed trajectory data points (Windage: R = Adjust Right, L = Adjust Left to compensate for wind)
+                        </CardDescription>
+                      </div>
+                      <Button
+                        onClick={exportToCSV}
+                        variant="outline"
+                        size="sm"
+                        className="flex items-center gap-2"
+                      >
+                        <Download className="h-4 w-4" />
+                        Export CSV
+                      </Button>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <div className="rounded-md border">
