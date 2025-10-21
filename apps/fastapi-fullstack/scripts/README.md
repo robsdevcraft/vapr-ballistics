@@ -22,6 +22,7 @@ scripts/
 **Format**: `{action}.{extension}`
 
 ### Available Actions:
+
 - `start` - Start the environment
 - `stop` - Stop the environment
 - `restart` - Restart the environment
@@ -31,12 +32,14 @@ scripts/
 - `deploy` - Deploy to target environment
 
 ### Platform Extensions:
+
 - `.bat` - Windows batch files
 - `.sh` - Unix shell scripts (Linux/macOS)
 
 ## 🚀 Usage Examples
 
 ### Development (Current Focus)
+
 ```bash
 # Windows
 apps\fastapi-fullstack\scripts\dev\windows\start.bat
@@ -50,6 +53,7 @@ apps\fastapi-fullstack\scripts\dev\windows\clean.bat
 ```
 
 ### Production (Future Use)
+
 ```bash
 # Windows
 apps\fastapi-fullstack\scripts\prod\windows\start.bat
@@ -59,6 +63,7 @@ apps\fastapi-fullstack\scripts\prod\windows\start.bat
 ```
 
 ### Deployment (Future Use)
+
 ```bash
 # Windows
 apps\fastapi-fullstack\scripts\deploy\windows\build.bat
@@ -70,6 +75,7 @@ apps\fastapi-fullstack\scripts\deploy\windows\build.bat
 ## 🏢 Industry Standards
 
 This structure follows patterns used by:
+
 - **Google** - Separates dev/prod/deploy concerns
 - **Microsoft** - Platform-specific script organization
 - **Netflix** - Environment-based directory structure
@@ -78,10 +84,12 @@ This structure follows patterns used by:
 ## 🔧 Quick Setup
 
 **For Windows Development:**
+
 1. Navigate to `apps\fastapi-fullstack\scripts\dev\windows\`
 2. Double-click `start.bat`
 
 **For Unix Development:**
+
 1. Make scripts executable: `chmod +x apps/fastapi-fullstack/scripts/dev/unix/*.sh`
 2. Run: `./apps/fastapi-fullstack/scripts/dev/unix/start.sh`
 

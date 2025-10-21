@@ -7,9 +7,9 @@ body:
     attributes:
       value: |
         ## Thanks for reporting a bug!
-        
+
         Please fill out the sections below to help us reproduce and fix the issue.
-        
+
         **Before submitting:**
         - Search [existing issues](https://github.com/robsdevcraft/vapr-ballistics/issues) to avoid duplicates
         - Try reproducing on the latest version

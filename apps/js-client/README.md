@@ -53,6 +53,7 @@ pnpm lint
 ## 🏗️ Build Output
 
 This app is configured for the monorepo and uses:
+
 - `outputFileTracingRoot` pointing to monorepo root
 - Standalone output disabled (to avoid Windows symlink issues)
 
@@ -67,6 +68,7 @@ This app is configured for the monorepo and uses:
 ## 🎨 UI Components
 
 Built with shadcn/ui components:
+
 - Tabs for chart navigation
 - Cards for data display
 - Forms with validation
@@ -94,6 +96,7 @@ pnpm build
 The app uses js-ballistics for calculations. No backend configuration needed!
 
 For monorepo-specific settings, see `next.config.ts`:
+
 - outputFileTracingRoot for proper file tracing
 - Optimized package imports for lucide-react
 

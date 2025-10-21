@@ -17,12 +17,14 @@ Instead, please report them responsibly via email:
 Please include the following information:
 
 ### Required:
+
 - **Description** - Clear explanation of the vulnerability
 - **Steps to reproduce** - Detailed reproduction steps
 - **Potential impact** - What an attacker could achieve
 - **Affected versions** - Which versions are vulnerable
 
 ### Optional but helpful:
+
 - **Proof of concept** - Example exploit code (if safe to share)
 - **Suggested fix** - If you have ideas for remediation
 - **Your contact info** - For follow-up questions
@@ -58,13 +60,13 @@ Please include the following information:
 
 We take security seriously and aim for the following response times:
 
-| Stage | Timeline |
-|-------|----------|
-| **Initial Response** | Within 48 hours |
-| **Vulnerability Assessment** | Within 1 week |
-| **Fix Development** | Depends on severity (see below) |
-| **Patch Release** | After fix is ready |
-| **Public Disclosure** | 90 days after patch (or coordinated) |
+| Stage                        | Timeline                             |
+| ---------------------------- | ------------------------------------ |
+| **Initial Response**         | Within 48 hours                      |
+| **Vulnerability Assessment** | Within 1 week                        |
+| **Fix Development**          | Depends on severity (see below)      |
+| **Patch Release**            | After fix is ready                   |
+| **Public Disclosure**        | 90 days after patch (or coordinated) |
 
 ### Severity-Based Fix Timelines:
 
@@ -79,11 +81,11 @@ We take security seriously and aim for the following response times:
 
 We provide security updates for the following versions:
 
-| Version | Supported |
-|---------|-----------|
-| `main` branch | ✅ Yes |
-| Latest release | ✅ Yes |
-| Older releases | ❌ No |
+| Version        | Supported |
+| -------------- | --------- |
+| `main` branch  | ✅ Yes    |
+| Latest release | ✅ Yes    |
+| Older releases | ❌ No     |
 
 **Recommendation:** Always use the latest release for security patches.
 
@@ -194,6 +196,7 @@ If you're using VAPR Ballistics, protect yourself:
 ### js-client (Static Site)
 
 **Minimal attack surface** - Pure client-side application
+
 - ✅ No backend = no server-side vulnerabilities
 - ✅ Static hosting recommended (Vercel, Netlify, GitHub Pages)
 - ⚠️ Use HTTPS to prevent MITM attacks
@@ -202,6 +205,7 @@ If you're using VAPR Ballistics, protect yourself:
 ### fastapi-fullstack (Full Stack)
 
 **More attack surface** - Requires secure deployment
+
 - ✅ Use environment variables for secrets
 - ✅ Enable HTTPS/TLS
 - ✅ Set secure CORS policies
@@ -243,6 +247,7 @@ For security concerns **only**:
 **PGP Key:** (Coming soon)
 
 For non-security issues:
+
 - 🐛 [GitHub Issues](https://github.com/robsdevcraft/vapr-ballistics/issues)
 - 💬 [GitHub Discussions](https://github.com/robsdevcraft/vapr-ballistics/discussions)
 

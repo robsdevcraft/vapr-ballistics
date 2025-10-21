@@ -19,9 +19,9 @@
 
 ### Changes Made
 
-- 
-- 
-- 
+-
+-
+-
 
 ### Why These Changes?
 
@@ -56,9 +56,7 @@ Paste test results here if applicable
 
 ### Before
 
-
 ### After
-
 
 ---
 
@@ -123,8 +121,8 @@ Paste test results here if applicable
 
 <!-- List any related PRs or issues -->
 
-- 
-- 
+-
+-
 
 ---
 
@@ -139,12 +137,14 @@ Paste test results here if applicable
 <!-- Optional: Highlight areas that need special attention -->
 
 **Areas needing extra review:**
-- 
-- 
+
+-
+-
 
 **Questions for maintainer:**
-- 
-- 
+
+-
+-
 
 ---
 

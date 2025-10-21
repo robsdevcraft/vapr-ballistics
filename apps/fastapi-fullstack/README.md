@@ -13,12 +13,14 @@ Full-stack ballistics calculator with Python FastAPI backend and React frontend.
 ## Tech Stack
 
 ### Backend
+
 - **Framework**: FastAPI
 - **Language**: Python 3.11+
 - **Ballistics**: Custom Python implementation
 - **API**: RESTful with OpenAPI docs
 
 ### Frontend
+
 - **Framework**: Next.js 15 with React 19
 - **UI Library**: Shadcn/ui with Tailwind CSS v4
 - **Charts**: Recharts
@@ -51,6 +53,7 @@ docker-compose -f docker-compose.dev.yml up --build
 ```
 
 **Access:**
+
 - Backend API: http://localhost:8000
 - API Docs: http://localhost:8000/docs
 - Frontend: http://localhost:3000
@@ -99,12 +102,14 @@ fastapi-fullstack/
 ## Environment Variables
 
 ### Backend
+
 - `ENVIRONMENT` - development/production
 - `DEBUG` - true/false
 - `ALLOWED_ORIGINS` - CORS allowed origins
 - `SECRET_KEY` - API secret key (production)
 
 ### Frontend
+
 - `NEXT_PUBLIC_API_URL` - Backend API URL (defaults to http://localhost:8000 in dev)
 
 ---

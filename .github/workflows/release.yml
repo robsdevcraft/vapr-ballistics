@@ -4,9 +4,9 @@ on:
   # Triggered when tags are pushed
   push:
     tags:
-      - 'js-client@*'
-      - 'fastapi-fullstack@*'
-      - 'v*'
+      - "js-client@*"
+      - "fastapi-fullstack@*"
+      - "v*"
 
 # Permissions for creating releases
 permissions:
@@ -17,19 +17,19 @@ jobs:
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Get tag name
         id: tag
         run: |
           TAG_NAME=${GITHUB_REF#refs/tags/}
           echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
-          
+
           # Extract app name if applicable
           if [[ "$TAG_NAME" == *"@"* ]]; then
             APP_NAME=${TAG_NAME%@*}
@@ -40,14 +40,14 @@ jobs:
             echo "app=monorepo" >> $GITHUB_OUTPUT
             echo "version=$TAG_NAME" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Get changelog
         id: changelog
         run: |
           # Try to extract changelog for this version
           APP="${{ steps.tag.outputs.app }}"
           VERSION="${{ steps.tag.outputs.version }}"
-          
+
           if [[ "$APP" == "js-client" ]]; then
             CHANGELOG_FILE="apps/js-client/CHANGELOG.md"
           elif [[ "$APP" == "fastapi-fullstack" ]]; then
@@ -55,7 +55,7 @@ jobs:
           else
             CHANGELOG_FILE="CHANGELOG.md"
           fi
-          
+
           # Extract changelog for this version if file exists
           if [[ -f "$CHANGELOG_FILE" ]]; then
             # Simple extraction - you can enhance this
@@ -65,18 +65,18 @@ jobs:
           else
             echo "changelog=See commits for details." >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: ${{ steps.tag.outputs.app }} ${{ steps.tag.outputs.version }}
           body: |
             # ${{ steps.tag.outputs.app }} ${{ steps.tag.outputs.version }}
-            
+
             ${{ steps.changelog.outputs.changelog }}
-            
+
             ---
-            
+
             **Full Changelog**: https://github.com/${{ github.repository }}/compare/${{ steps.tag.outputs.tag }}
           draft: false
           prerelease: ${{ contains(steps.tag.outputs.version, 'alpha') || contains(steps.tag.outputs.version, 'beta') || contains(steps.tag.outputs.version, 'rc') }}

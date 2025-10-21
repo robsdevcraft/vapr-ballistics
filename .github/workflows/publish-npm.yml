@@ -8,13 +8,13 @@ on:
   # Trigger on tag push
   push:
     tags:
-      - 'js-client@*'
-  
+      - "js-client@*"
+
   # Allow manual trigger
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to publish (e.g., 1.2.3)'
+        description: "Version to publish (e.g., 1.2.3)"
         required: true
         type: string
 
@@ -28,23 +28,23 @@ jobs:
     runs-on: ubuntu-latest
     # DISABLED - Remove this line to enable NPM publishing
     if: false
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10.18.1
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
-      
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
       - name: Determine version
         id: version
         run: |
@@ -55,22 +55,22 @@ jobs:
             VERSION=${TAG_NAME#*@}
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-      
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      
+
       - name: Build js-client
         run: |
           cd apps/js-client
           pnpm build
-      
+
       - name: Publish to NPM
         run: |
           cd apps/js-client
           pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
+
       - name: Summary
         run: |
           echo "### ✅ NPM Package Published" >> $GITHUB_STEP_SUMMARY

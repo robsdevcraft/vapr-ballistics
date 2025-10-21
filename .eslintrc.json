@@ -23,12 +23,7 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "@typescript-eslint",
-    "react",
-    "react-hooks",
-    "jsx-a11y"
-  ],
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "jsx-a11y"],
   "settings": {
     "react": {
       "version": "detect"

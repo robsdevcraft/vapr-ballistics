@@ -33,6 +33,7 @@ vapr-ballistics/
 ```
 
 **Why monorepo?**
+
 - ✅ Single source of truth for related projects
 - ✅ Shared configuration and tooling
 - ✅ Easier cross-app refactoring
@@ -136,6 +137,7 @@ No server communication - all calculations happen in-memory.
 #### Technology Stack
 
 **Backend:**
+
 - **Framework:** FastAPI
 - **Language:** Python 3.11+
 - **Ballistics Engine:** [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) v2.2.1+
@@ -143,6 +145,7 @@ No server communication - all calculations happen in-memory.
 - **Containerization:** Docker
 
 **Frontend:**
+
 - **Framework:** Next.js 14 (React 18)
 - **Language:** TypeScript
 - **API Client:** Fetch API
@@ -170,36 +173,36 @@ Display results in UI
 
 ### Shared Technologies
 
-| Category | Technology | Version | Purpose |
-|----------|-----------|---------|---------|
-| **Monorepo** | Turborepo | 2.5.8 | Build orchestration, caching |
-| **Package Manager** | pnpm | 10.18.1 | Fast, disk-efficient dependency management |
-| **Styling** | Tailwind CSS | 3.4.x | Utility-first CSS framework |
-| **UI Components** | shadcn/ui | Latest | Pre-built accessible components |
-| **Linting** | ESLint | 9.x | Code quality (bug catching) |
-| **Formatting** | Prettier | 3.x | Code formatting (style enforcement) |
-| **Type Safety** | TypeScript | 5.7.x | Static type checking |
+| Category            | Technology   | Version | Purpose                                    |
+| ------------------- | ------------ | ------- | ------------------------------------------ |
+| **Monorepo**        | Turborepo    | 2.5.8   | Build orchestration, caching               |
+| **Package Manager** | pnpm         | 10.18.1 | Fast, disk-efficient dependency management |
+| **Styling**         | Tailwind CSS | 3.4.x   | Utility-first CSS framework                |
+| **UI Components**   | shadcn/ui    | Latest  | Pre-built accessible components            |
+| **Linting**         | ESLint       | 9.x     | Code quality (bug catching)                |
+| **Formatting**      | Prettier     | 3.x     | Code formatting (style enforcement)        |
+| **Type Safety**     | TypeScript   | 5.7.x   | Static type checking                       |
 
 ### Application-Specific
 
 #### js-client
 
-| Category | Technology | Purpose |
-|----------|-----------|---------|
-| **Framework** | Next.js 15 | React framework with static export |
+| Category       | Technology                 | Purpose                            |
+| -------------- | -------------------------- | ---------------------------------- |
+| **Framework**  | Next.js 15                 | React framework with static export |
 | **Ballistics** | js-ballistics 2.2.0-beta.1 | Pure JS/TS ballistics calculations |
-| **Charts** | Recharts | Trajectory visualization |
-| **Theme** | next-themes | Dark/light mode |
+| **Charts**     | Recharts                   | Trajectory visualization           |
+| **Theme**      | next-themes                | Dark/light mode                    |
 
 #### fastapi-fullstack
 
-| Category | Technology | Purpose |
-|----------|-----------|---------|
-| **Backend** | FastAPI | High-performance Python API framework |
-| **Ballistics** | py-ballisticcalc 2.2.1+ | Python ballistics engine |
-| **Server** | Uvicorn | ASGI server |
-| **Frontend** | Next.js 14 | React frontend for API consumption |
-| **Container** | Docker | Isolated deployments |
+| Category       | Technology              | Purpose                               |
+| -------------- | ----------------------- | ------------------------------------- |
+| **Backend**    | FastAPI                 | High-performance Python API framework |
+| **Ballistics** | py-ballisticcalc 2.2.1+ | Python ballistics engine              |
+| **Server**     | Uvicorn                 | ASGI server                           |
+| **Frontend**   | Next.js 14              | React frontend for API consumption    |
+| **Container**  | Docker                  | Isolated deployments                  |
 
 ---
 
@@ -238,12 +241,14 @@ Display results in UI
 ### Why Two Apps?
 
 **js-client advantages:**
+
 - ✅ Zero deployment cost (static hosting)
 - ✅ Instant calculations (no network latency)
 - ✅ Offline capable
 - ✅ No server maintenance
 
 **fastapi-fullstack advantages:**
+
 - ✅ Centralized logic (easier to update)
 - ✅ Can add database for profiles
 - ✅ Can add authentication
@@ -251,6 +256,7 @@ Display results in UI
 - ✅ Future extensibility
 
 **Use case:**
+
 - **js-client** - Quick calculator, public use
 - **fastapi-fullstack** - Feature-rich application, user accounts, data persistence
 
@@ -272,6 +278,7 @@ graph TD
 ```
 
 **Key Points:**
+
 - All state managed by React
 - No external API calls
 - Calculations happen synchronously
@@ -293,6 +300,7 @@ graph TD
 ```
 
 **Key Points:**
+
 - Frontend and backend communicate via REST API
 - Backend is stateless (no session management yet)
 - CORS enabled for cross-origin requests
@@ -325,6 +333,7 @@ graph TD
 **Deployment:** `pnpm build` → `out/` directory → Upload to hosting
 
 **Hosting Options:**
+
 - **Vercel** (recommended) - Zero config, automatic deployments
 - **Netlify** - Similar to Vercel
 - **GitHub Pages** - Free for open source
@@ -354,12 +363,14 @@ graph TD
 ```
 
 **Deployment Options:**
+
 - **Docker Compose** (development/self-hosted)
 - **AWS ECS** (production, scalable)
 - **Google Cloud Run** (serverless containers)
 - **DigitalOcean App Platform** (simple deployment)
 
 **Components:**
+
 1. **Frontend container** - Serves Next.js app
 2. **Backend container** - Runs FastAPI + Uvicorn
 3. **Nginx** - Reverse proxy, SSL termination (optional)
@@ -371,6 +382,7 @@ graph TD
 ### Planned Features
 
 #### Short-term (1-3 months)
+
 - [ ] Add comprehensive test coverage (Vitest + Playwright)
 - [ ] Implement user profiles (save/load settings)
 - [ ] Add more ballistics features (wind deflection, Coriolis effect)
@@ -378,6 +390,7 @@ graph TD
 - [ ] Add export to PDF functionality
 
 #### Medium-term (3-6 months)
+
 - [ ] Create shared package for common utilities (`@vapr/shared`)
 - [ ] Add authentication to fastapi-fullstack (JWT)
 - [ ] Implement database for user data (PostgreSQL)
@@ -385,6 +398,7 @@ graph TD
 - [ ] Add internationalization (i18n)
 
 #### Long-term (6-12 months)
+
 - [ ] Real-time collaboration features
 - [ ] Advanced analytics and insights
 - [ ] Machine learning for trajectory prediction improvements

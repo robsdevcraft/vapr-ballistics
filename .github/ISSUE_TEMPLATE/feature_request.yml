@@ -7,9 +7,9 @@ body:
     attributes:
       value: |
         ## Thanks for suggesting a feature!
-        
+
         Please fill out the sections below to help us understand your request.
-        
+
         **Before submitting:**
         - Search [existing issues](https://github.com/robsdevcraft/vapr-ballistics/issues) and [discussions](https://github.com/robsdevcraft/vapr-ballistics/discussions) for similar ideas
         - Consider starting a [Discussion](https://github.com/robsdevcraft/vapr-ballistics/discussions/new?category=ideas) first to gather feedback

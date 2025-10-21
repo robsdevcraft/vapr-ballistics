@@ -56,6 +56,7 @@ git push origin feat/windage-chart-improvements
 **Format**: `<type>/<description>`
 
 **Types:**
+
 - `feat/` - New features
 - `fix/` - Bug fixes
 - `docs/` - Documentation changes
@@ -65,6 +66,7 @@ git push origin feat/windage-chart-improvements
 - `chore/` - Maintenance tasks
 
 **Examples:**
+
 ```bash
 feat/csv-export-trajectory-data
 fix/tooltip-visibility-dark-mode
@@ -84,6 +86,7 @@ chore/upgrade-dependencies
 We use [Conventional Commits](https://www.conventionalcommits.org/) for automated changelogs.
 
 **Format:**
+
 ```
 <type>(<scope>): <subject>
 
@@ -93,6 +96,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/) for automate
 ```
 
 **Example:**
+
 ```
 feat(js-client): add CSV export to trajectory table
 
@@ -106,18 +110,18 @@ Closes #42
 
 ### Commit Types
 
-| Type | Description | Bump Version? |
-|------|-------------|---------------|
-| `feat` | New feature | MINOR (1.1.0 → 1.2.0) |
-| `fix` | Bug fix | PATCH (1.1.0 → 1.1.1) |
-| `docs` | Documentation only | NO |
-| `style` | Code formatting | NO |
-| `refactor` | Code restructure | NO |
-| `perf` | Performance | PATCH |
-| `test` | Add tests | NO |
-| `chore` | Maintenance | NO |
-| `ci` | CI/CD changes | NO |
-| `revert` | Revert previous commit | Depends |
+| Type       | Description            | Bump Version?         |
+| ---------- | ---------------------- | --------------------- |
+| `feat`     | New feature            | MINOR (1.1.0 → 1.2.0) |
+| `fix`      | Bug fix                | PATCH (1.1.0 → 1.1.1) |
+| `docs`     | Documentation only     | NO                    |
+| `style`    | Code formatting        | NO                    |
+| `refactor` | Code restructure       | NO                    |
+| `perf`     | Performance            | PATCH                 |
+| `test`     | Add tests              | NO                    |
+| `chore`    | Maintenance            | NO                    |
+| `ci`       | CI/CD changes          | NO                    |
+| `revert`   | Revert previous commit | Depends               |
 
 ### Breaking Changes
 
@@ -141,6 +145,7 @@ The `!` and `BREAKING CHANGE:` will bump MAJOR version (1.2.0 → 2.0.0).
 ### Scopes
 
 **Monorepo Scopes:**
+
 - `js-client` - Client-only app
 - `fastapi` - FastAPI fullstack app
 - `ui` - Shared UI components
@@ -149,6 +154,7 @@ The `!` and `BREAKING CHANGE:` will bump MAJOR version (1.2.0 → 2.0.0).
 - `ci` - CI/CD workflows
 
 **Examples:**
+
 ```bash
 feat(js-client): add dark mode toggle
 fix(fastapi): correct trajectory calculation
@@ -233,6 +239,7 @@ git push origin js-client@1.2.0
 ```
 
 **Examples:**
+
 - `1.0.0` → `1.0.1` - Fixed a bug
 - `1.0.1` → `1.1.0` - Added CSV export feature
 - `1.1.0` → `2.0.0` - Changed API (breaking)
@@ -240,6 +247,7 @@ git push origin js-client@1.2.0
 ### Independent Versioning
 
 Each app versions independently:
+
 - `js-client@1.2.0`
 - `fastapi-fullstack@1.5.3`
 
@@ -264,6 +272,7 @@ pnpm format:check
 ```
 
 **Settings:**
+
 - 2-space indentation
 - Double quotes for strings
 - Semicolons at end of statements
@@ -285,6 +294,7 @@ pnpm lint:fix
 ```
 
 **What ESLint Checks:**
+
 - Unused variables
 - Missing dependencies in React hooks
 - Accessibility issues in JSX
@@ -296,6 +306,7 @@ pnpm lint:fix
 **Configured in `.editorconfig`**
 
 Ensures consistent editor behavior:
+
 - 2-space indentation
 - LF line endings (Unix-style)
 - Trim trailing whitespace
@@ -310,6 +321,7 @@ Most editors support this automatically.
 ### When CI Runs
 
 **Triggers:**
+
 ```yaml
 ✅ Pull Request to main (opened, updated)
 ✅ Push to main branch
@@ -317,24 +329,29 @@ Most editors support this automatically.
 ```
 
 **Manual Trigger:**
+
 - Go to Actions tab → Select workflow → Run workflow
 
 ### CI Jobs
 
 **1. Lint**
+
 - Runs Prettier check
 - Runs ESLint
 - Fails if code isn't formatted or has lint errors
 
 **2. Type Check**
+
 - Runs TypeScript compiler
 - Ensures no type errors
 
 **3. Build**
+
 - Builds all apps in monorepo
 - Ensures no build errors
 
 **4. Test** (when we add tests)
+
 - Runs unit tests
 - Runs integration tests
 - Checks code coverage

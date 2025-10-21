@@ -95,7 +95,10 @@ type BulletWeight = number | null;
 const STEP_TOLERANCE = 1e-4;
 
 export class BallisticsError extends Error {
-  constructor(message: string, public readonly code: string = "ballistics_error") {
+  constructor(
+    message: string,
+    public readonly code: string = "ballistics_error"
+  ) {
     super(message);
     this.name = "BallisticsError";
   }
@@ -153,7 +156,8 @@ export class BallisticsCalculator {
       };
     }
 
-    const estimated_points = Math.floor((request.max_range - request.zero_distance) / request.step_size) + 1;
+    const estimated_points =
+      Math.floor((request.max_range - request.zero_distance) / request.step_size) + 1;
 
     return {
       valid: true,
@@ -181,9 +185,7 @@ export class BallisticsCalculator {
     });
 
     const filtered = this.filterTrajectory(hitResult.trajectory, request.step_size);
-    const trajectory = filtered.map((point) =>
-      this.toTrajectoryPoint(point, bulletWeightGrains)
-    );
+    const trajectory = filtered.map((point) => this.toTrajectoryPoint(point, bulletWeightGrains));
 
     return {
       trajectory,
@@ -223,14 +225,15 @@ export class BallisticsCalculator {
       powderT: UNew.Fahrenheit(request.atmosphere.temperature),
     });
 
-    const winds = request.wind.speed > 0
-      ? [
-          new Wind({
-            velocity: UNew.MPH(request.wind.speed),
-            directionFrom: UNew.OClock(request.wind.direction),
-          }),
-        ]
-      : undefined;
+    const winds =
+      request.wind.speed > 0
+        ? [
+            new Wind({
+              velocity: UNew.MPH(request.wind.speed),
+              directionFrom: UNew.OClock(request.wind.direction),
+            }),
+          ]
+        : undefined;
 
     const shot = new Shot({ weapon, ammo, atmo, winds });
 
@@ -249,14 +252,14 @@ export class BallisticsCalculator {
     });
   }
 
-  private toTrajectoryPoint(point: TrajectoryData, bulletWeightGrains: BulletWeight): TrajectoryPoint {
+  private toTrajectoryPoint(
+    point: TrajectoryData,
+    bulletWeightGrains: BulletWeight
+  ): TrajectoryPoint {
     const distance = point.distance.In(Distance.Yard);
     const velocity = point.velocity.In(Velocity.FPS);
 
-    const dropCandidates = [
-      point.height?.In(Distance.Inch),
-      point.targetDrop?.In(Distance.Inch),
-    ];
+    const dropCandidates = [point.height?.In(Distance.Inch), point.targetDrop?.In(Distance.Inch)];
     const drop = dropCandidates.find((value) => Number.isFinite(value)) ?? 0;
 
     const windage = point.windage?.In(Distance.Inch) ?? 0;

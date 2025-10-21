@@ -79,6 +79,7 @@ git checkout -b feat/your-feature-name
 ```
 
 **Branch naming:**
+
 - `feat/` - New features
 - `fix/` - Bug fixes
 - `docs/` - Documentation
@@ -128,6 +129,7 @@ Closes #42"
 ```
 
 **Commit format:**
+
 ```
 <type>(<scope>): <subject>
 
@@ -147,6 +149,7 @@ git push origin feat/your-feature-name
 ```
 
 Then create a PR on GitHub:
+
 1. Go to your fork
 2. Click "Compare & pull request"
 3. Fill out the PR template (link to discussion/issue)
@@ -194,11 +197,13 @@ When you open a PR, the template will ask:
 We use Prettier. Your editor should auto-format on save.
 
 **Manual formatting:**
+
 ```bash
 pnpm format
 ```
 
 **Our Prettier config:**
+
 - 2-space indentation
 - Double quotes
 - Semicolons
@@ -222,6 +227,7 @@ pnpm lint:fix
 - ✅ Export types for shared interfaces
 
 **Example:**
+
 ```typescript
 // ✅ Good
 export function calculateTrajectory(params: TrajectoryParams): TrajectoryResult {
@@ -260,16 +266,16 @@ pnpm test:coverage
 ### Test Structure
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { calculateTrajectory } from './ballistics';
+import { describe, it, expect } from "vitest";
+import { calculateTrajectory } from "./ballistics";
 
-describe('calculateTrajectory', () => {
-  it('should calculate correct drop at 100 yards', () => {
+describe("calculateTrajectory", () => {
+  it("should calculate correct drop at 100 yards", () => {
     const result = calculateTrajectory({ distance: 100 });
     expect(result.drop).toBeCloseTo(-2.5, 1);
   });
 
-  it('should throw error for invalid distance', () => {
+  it("should throw error for invalid distance", () => {
     expect(() => calculateTrajectory({ distance: -10 })).toThrow();
   });
 });
@@ -282,6 +288,7 @@ describe('calculateTrajectory', () => {
 ### When to Update Docs
 
 Update documentation if you:
+
 - ✅ Add new features
 - ✅ Change existing APIs
 - ✅ Add new configuration options
@@ -290,7 +297,7 @@ Update documentation if you:
 ### Documentation Locations
 
 - **README.md** - Project overview, quick start
-- **apps/*/README.md** - App-specific documentation
+- **apps/\*/README.md** - App-specific documentation
 - **docs/guides/** - Detailed guides and tutorials
 - **Code comments** - Complex logic, edge cases
 - **JSDoc** - Public API functions
@@ -367,12 +374,14 @@ Use [GitHub Discussions](https://github.com/robsdevcraft/vapr-ballistics/discuss
 We are committed to providing a welcoming and inclusive environment.
 
 **Expected behavior:**
+
 - ✅ Be respectful and considerate
 - ✅ Accept constructive criticism gracefully
 - ✅ Focus on what's best for the community
 - ✅ Show empathy towards others
 
 **Unacceptable behavior:**
+
 - ❌ Harassment, trolling, or insulting comments
 - ❌ Personal or political attacks
 - ❌ Publishing private information
@@ -381,6 +390,7 @@ We are committed to providing a welcoming and inclusive environment.
 ### Enforcement
 
 Violations will result in:
+
 1. **Warning** - First offense
 2. **Temporary ban** - Repeated violations
 3. **Permanent ban** - Severe or persistent violations
@@ -396,6 +406,7 @@ Report violations to: [rob@devcrafted.io](mailto:rob@devcrafted.io)
 **DO NOT** open public issues for security vulnerabilities.
 
 Instead:
+
 1. Email: [rob@devcrafted.io](mailto:rob@devcrafted.io)
 2. Include: Description, reproduction steps, potential impact
 3. We'll respond within 48 hours

@@ -17,6 +17,7 @@ pnpm changeset
 ```
 
 This interactive CLI will:
+
 1. Ask which packages changed (js-client, fastapi-fullstack, or both)
 2. Ask what type of change (patch, minor, major)
 3. Ask for a summary of the changes
@@ -39,6 +40,7 @@ pnpm changeset:version
 ```
 
 This will:
+
 - Bump package versions according to changesets
 - Update CHANGELOG.md files
 - Delete consumed changeset files
@@ -126,6 +128,7 @@ pnpm changeset
 ### Independent Versioning
 
 Each app versions independently:
+
 - `js-client` can be at v2.1.0
 - `fastapi-fullstack` can be at v1.5.3
 
@@ -189,6 +192,7 @@ git push --follow-tags
 See `.changeset/config.json` for configuration options.
 
 **Current settings:**
+
 - `commit: false` - Don't auto-commit after version bump
 - `access: public` - Packages are public (if publishing)
 - `baseBranch: main` - Base branch for comparison

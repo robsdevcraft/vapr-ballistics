@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import {
   LineChart,
   Line,
@@ -12,18 +12,38 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
-import { Crosshair, Target, Wind, Cloud, Settings, AlertCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { toast } from 'sonner';
+} from "recharts";
+import { Crosshair, Target, Wind, Cloud, Settings, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { toast } from "sonner";
 
 // Validation schema
 const formSchema = z.object({
@@ -33,7 +53,7 @@ const formSchema = z.object({
   }),
   ammo: z.object({
     bc: z.number().min(0.1).max(2.0),
-    drag_model: z.enum(['G1', 'G7']),
+    drag_model: z.enum(["G1", "G7"]),
     muzzle_velocity: z.number().min(500).max(5000),
     bullet_weight: z.number().min(20).max(1000).optional(),
   }),
@@ -72,12 +92,12 @@ interface CalculationResponse {
   message: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export default function BallisticsCalculator() {
   const [results, setResults] = useState<CalculationResponse | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -88,7 +108,7 @@ export default function BallisticsCalculator() {
       },
       ammo: {
         bc: 0.326,
-        drag_model: 'G7',
+        drag_model: "G7",
         muzzle_velocity: 2750,
         bullet_weight: 140,
       },
@@ -110,29 +130,29 @@ export default function BallisticsCalculator() {
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/calculate`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || 'Calculation failed');
+        throw new Error(errorData.detail || "Calculation failed");
       }
 
       const result: CalculationResponse = await response.json();
       setResults(result);
-      
+
       // Show success toast notification
       toast.success("Calculation complete - Please open the Data tab to view results");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
     } finally {
       setLoading(false);
     }
@@ -151,12 +171,12 @@ export default function BallisticsCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="bg-background min-h-screen p-4">
+      <div className="mx-auto max-w-7xl">
         {/* Header with Theme Toggle */}
-        <div className="flex justify-between items-start mb-8">
-          <header className="text-center flex-1">
-            <h1 className="text-4xl font-bold text-foreground mb-2">
+        <div className="mb-8 flex items-start justify-between">
+          <header className="flex-1 text-center">
+            <h1 className="text-foreground mb-2 text-4xl font-bold">
               Ballistics Calculator (Mil-based)
             </h1>
             <p className="text-muted-foreground">
@@ -171,11 +191,11 @@ export default function BallisticsCalculator() {
         <Tabs defaultValue="inputs" className="space-y-6">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="inputs" className="flex items-center gap-2">
-              <Settings className="w-4 h-4" />
+              <Settings className="h-4 w-4" />
               Configuration
             </TabsTrigger>
             <TabsTrigger value="results" className="flex items-center gap-2" disabled={!results}>
-              <Target className="w-4 h-4" />
+              <Target className="h-4 w-4" />
               Data
             </TabsTrigger>
           </TabsList>
@@ -187,14 +207,12 @@ export default function BallisticsCalculator() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Crosshair className="w-5 h-5" />
+                      <Crosshair className="h-5 w-5" />
                       Weapon Configuration
                     </CardTitle>
-                    <CardDescription>
-                      Configure weapon-specific parameters
-                    </CardDescription>
+                    <CardDescription>Configure weapon-specific parameters</CardDescription>
                   </CardHeader>
-                  <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                       control={form.control}
                       name="weapon.sight_height"
@@ -224,7 +242,9 @@ export default function BallisticsCalculator() {
                               type="number"
                               step="0.1"
                               {...field}
-                              onChange={(e) => field.onChange(parseFloat(e.target.value) || undefined)}
+                              onChange={(e) =>
+                                field.onChange(parseFloat(e.target.value) || undefined)
+                              }
                             />
                           </FormControl>
                           <FormMessage />
@@ -238,14 +258,12 @@ export default function BallisticsCalculator() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Target className="w-5 h-5" />
+                      <Target className="h-5 w-5" />
                       Ammunition
                     </CardTitle>
-                    <CardDescription>
-                      Configure ammunition parameters
-                    </CardDescription>
+                    <CardDescription>Configure ammunition parameters</CardDescription>
                   </CardHeader>
-                  <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                       control={form.control}
                       name="ammo.bc"
@@ -314,7 +332,9 @@ export default function BallisticsCalculator() {
                               type="number"
                               step="1"
                               {...field}
-                              onChange={(e) => field.onChange(parseFloat(e.target.value) || undefined)}
+                              onChange={(e) =>
+                                field.onChange(parseFloat(e.target.value) || undefined)
+                              }
                             />
                           </FormControl>
                           <FormMessage />
@@ -328,14 +348,12 @@ export default function BallisticsCalculator() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Cloud className="w-5 h-5" />
+                      <Cloud className="h-5 w-5" />
                       Atmospheric Conditions
                     </CardTitle>
-                    <CardDescription>
-                      Configure environmental parameters
-                    </CardDescription>
+                    <CardDescription>Configure environmental parameters</CardDescription>
                   </CardHeader>
-                  <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                       control={form.control}
                       name="atmosphere.temperature"
@@ -415,14 +433,12 @@ export default function BallisticsCalculator() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Wind className="w-5 h-5" />
+                      <Wind className="h-5 w-5" />
                       Wind Conditions
                     </CardTitle>
-                    <CardDescription>
-                      Configure wind parameters
-                    </CardDescription>
+                    <CardDescription>Configure wind parameters</CardDescription>
                   </CardHeader>
-                  <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                       control={form.control}
                       name="wind.speed"
@@ -466,14 +482,12 @@ export default function BallisticsCalculator() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Settings className="w-5 h-5" />
+                      <Settings className="h-5 w-5" />
                       Calculation Settings
                     </CardTitle>
-                    <CardDescription>
-                      Configure calculation parameters
-                    </CardDescription>
+                    <CardDescription>Configure calculation parameters</CardDescription>
                   </CardHeader>
-                  <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-3">
                     <FormField
                       control={form.control}
                       name="zero_distance"
@@ -540,7 +554,7 @@ export default function BallisticsCalculator() {
 
                 <div className="text-center">
                   <Button type="submit" disabled={loading} size="lg" className="px-8">
-                    {loading ? 'Calculating...' : 'Calculate Trajectory'}
+                    {loading ? "Calculating..." : "Calculate Trajectory"}
                   </Button>
                 </div>
               </form>
@@ -551,7 +565,7 @@ export default function BallisticsCalculator() {
             {results && (
               <>
                 {/* Summary Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   <Card>
                     <CardContent className="p-6">
                       <div className="text-center">
@@ -567,7 +581,10 @@ export default function BallisticsCalculator() {
                       <div className="text-center">
                         <p className="text-sm font-medium">Max Drop</p>
                         <p className="text-2xl font-bold">
-                          {Math.max(...results.trajectory.map((p) => Math.abs(p.drop_adjustment))).toFixed(2)} mils
+                          {Math.max(
+                            ...results.trajectory.map((p) => Math.abs(p.drop_adjustment))
+                          ).toFixed(2)}{" "}
+                          mils
                         </p>
                       </div>
                     </CardContent>
@@ -577,7 +594,10 @@ export default function BallisticsCalculator() {
                       <div className="text-center">
                         <p className="text-sm font-medium">Max Windage</p>
                         <p className="text-2xl font-bold">
-                          {Math.max(...results.trajectory.map((p) => Math.abs(p.windage_adjustment))).toFixed(2)} mils
+                          {Math.max(
+                            ...results.trajectory.map((p) => Math.abs(p.windage_adjustment))
+                          ).toFixed(2)}{" "}
+                          mils
                         </p>
                       </div>
                     </CardContent>
@@ -592,42 +612,46 @@ export default function BallisticsCalculator() {
                       Bullet drop and windage over distance (in mils)
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className='my-4'>
+                  <CardContent className="my-4">
                     <ResponsiveContainer width="100%" height={400}>
-                      <LineChart 
+                      <LineChart
                         data={formatChartData()}
                         margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
                       >
                         <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                        <XAxis 
-                          dataKey="distance" 
-                          label={{ value: 'Distance (yards)', position: 'insideBottom', offset: -15}}
+                        <XAxis
+                          dataKey="distance"
+                          label={{
+                            value: "Distance (yards)",
+                            position: "insideBottom",
+                            offset: -15,
+                          }}
                           className="foreground"
                         />
-                        <YAxis 
-                          label={{ value: 'Drop (mils)', angle: -90, position: 'insideLeft' }}
+                        <YAxis
+                          label={{ value: "Drop (mils)", angle: -90, position: "insideLeft" }}
                           className="primary"
                         />
-                        <Tooltip 
+                        <Tooltip
                           formatter={(value, name) => [Number(value).toFixed(2), name]}
                           contentStyle={{
-                            backgroundColor: 'hsl(var(--background))',
-                            border: '1px solid hsl(var(--border))',
-                            borderRadius: '6px',
-                            color: 'hsl(var(--foreground))'
+                            backgroundColor: "hsl(var(--background))",
+                            border: "1px solid hsl(var(--border))",
+                            borderRadius: "6px",
+                            color: "hsl(var(--foreground))",
                           }}
                         />
                         <Line
                           type="monotone"
                           dataKey="drop"
-                          stroke='var(--foreground)'
+                          stroke="var(--foreground)"
                           strokeWidth={2}
                           name="Drop (mils)"
                         />
                         <Line
                           type="monotone"
                           dataKey="windage"
-                          stroke='var(--foreground)'
+                          stroke="var(--foreground)"
                           strokeWidth={2}
                           name="Windage (mils)"
                         />
@@ -640,9 +664,7 @@ export default function BallisticsCalculator() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Trajectory Table</CardTitle>
-                    <CardDescription>
-                      Detailed trajectory data points
-                    </CardDescription>
+                    <CardDescription>Detailed trajectory data points</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="rounded-md border">

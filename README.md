@@ -32,12 +32,14 @@ vapr-ballistics/
 - **Deployment**: Static export, CDN-ready
 
 **Use Cases:**
+
 - Offline ballistics calculations
 - Embedded in static sites
 - Fast, lightweight deployments
 - No server costs
 
 **Quick Start:**
+
 ```bash
 cd apps/js-client
 pnpm install
@@ -45,6 +47,7 @@ pnpm dev
 ```
 
 **Production Build:**
+
 ```bash
 cd apps/js-client
 pnpm build
@@ -63,23 +66,27 @@ pnpm start
 - **Deployment**: Docker Compose, multi-container
 
 **Use Cases:**
+
 - Advanced server-side calculations
 - API for mobile apps
 - Enterprise deployments
 - Complex ballistics modeling
 
 **Quick Start (Docker):**
+
 ```bash
 cd apps/fastapi-fullstack/docker
 docker-compose -f docker-compose.dev.yml up --build
 ```
 
 **Access:**
+
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8000
 - API Docs: http://localhost:8000/docs
 
 **Quick Start (Manual):**
+
 ```bash
 # Backend
 cd apps/fastapi-fullstack/backend
@@ -118,17 +125,20 @@ pnpm install
 ### Development
 
 **Run JS Client:**
+
 ```bash
 pnpm --filter @vapr/js-client dev
 ```
 
 **Run FastAPI Fullstack (Docker):**
+
 ```bash
 cd apps/fastapi-fullstack/docker
 docker-compose -f docker-compose.dev.yml up --build
 ```
 
 **Build All Apps:**
+
 ```bash
 pnpm build
 ```
@@ -137,21 +147,22 @@ pnpm build
 
 ## 📊 Feature Comparison
 
-| Feature | JS Client | FastAPI Fullstack |
-|---------|-----------|-------------------|
-| **Backend Required** | ❌ No | ✅ Yes |
-| **Ballistics Engine** | js-ballistics | py-ballisticcalc |
-| **Offline Capable** | ✅ Yes | ❌ No |
-| **API Available** | ❌ No | ✅ Yes |
-| **Deployment Complexity** | Low (CDN) | Medium (Docker) |
-| **Server Costs** | None | Required |
-| **Best For** | Static sites, demos | Enterprise, mobile APIs |
+| Feature                   | JS Client           | FastAPI Fullstack       |
+| ------------------------- | ------------------- | ----------------------- |
+| **Backend Required**      | ❌ No               | ✅ Yes                  |
+| **Ballistics Engine**     | js-ballistics       | py-ballisticcalc        |
+| **Offline Capable**       | ✅ Yes              | ❌ No                   |
+| **API Available**         | ❌ No               | ✅ Yes                  |
+| **Deployment Complexity** | Low (CDN)           | Medium (Docker)         |
+| **Server Costs**          | None                | Required                |
+| **Best For**              | Static sites, demos | Enterprise, mobile APIs |
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Shared
+
 - **Monorepo**: Turborepo v2.5.8
 - **Package Manager**: pnpm v10.18.1
 - **Frontend Framework**: Next.js 15 with React 19
@@ -161,10 +172,12 @@ pnpm build
 - **TypeScript**: Full type safety
 
 ### JS Client Specific
+
 - **Ballistics**: js-ballistics v2.2.0-beta.1
 - **Deployment**: Static export
 
 ### FastAPI Fullstack Specific
+
 - **Backend**: FastAPI with Python 3.11+
 - **Ballistics**: py-ballisticcalc v2.2.1+
 - **API Docs**: OpenAPI/Swagger
@@ -242,6 +255,7 @@ pnpm --filter @vapr/js-client lint
 ### Working on FastAPI Fullstack
 
 **Using Docker (Recommended):**
+
 ```bash
 cd apps/fastapi-fullstack/scripts/dev/windows
 start.bat  # Windows
@@ -252,6 +266,7 @@ cd apps/fastapi-fullstack/scripts/dev/unix
 ```
 
 **Manual Development:**
+
 ```bash
 # Backend
 cd apps/fastapi-fullstack/backend
@@ -297,6 +312,7 @@ pnpm clean
 ### JS Client Issues
 
 **Port 3000 already in use:**
+
 ```bash
 # Windows
 netstat -ano | findstr :3000
@@ -307,6 +323,7 @@ lsof -ti:3000 | xargs kill -9
 ```
 
 **Build errors:**
+
 ```bash
 cd apps/js-client
 rm -rf .next node_modules
@@ -317,10 +334,12 @@ pnpm build
 ### FastAPI Fullstack Issues
 
 **Docker build slow:**
+
 - The `.dockerignore` files should exclude `__pycache__`, `node_modules`, etc.
 - If build context is large, verify `.dockerignore` exists in `backend/` and `frontend/`
 
 **Backend won't start:**
+
 ```bash
 cd apps/fastapi-fullstack/backend
 python --version  # Verify 3.11+
@@ -328,6 +347,7 @@ pip install -r requirements.txt
 ```
 
 **Frontend API connection:**
+
 - Verify `NEXT_PUBLIC_API_URL` in `.env.local`
 - Check backend is running on port 8000
 - Review CORS settings in backend

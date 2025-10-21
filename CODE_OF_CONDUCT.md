@@ -60,6 +60,7 @@ response to any behavior that they deem inappropriate, threatening, offensive,
 or harmful.
 
 Maintainers have the right and responsibility to remove, edit, or reject:
+
 - Comments
 - Commits
 - Code
@@ -82,6 +83,7 @@ If you experience or witness unacceptable behavior, please report it by:
 **Email:** [rob@devcrafted.io](mailto:rob@devcrafted.io)
 
 **Include in your report:**
+
 - Your contact information
 - Names (real, usernames, or pseudonyms) of individuals involved
 - Description of the incident

@@ -17,12 +17,14 @@ This frontend connects to the FastAPI backend for server-side ballistics calcula
 ## Development
 
 **Standalone (requires backend running on port 8000):**
+
 ```bash
 npm install
 npm run dev
 ```
 
 **With Docker (recommended):**
+
 ```bash
 cd ../docker
 docker-compose -f docker-compose.dev.yml up --build
