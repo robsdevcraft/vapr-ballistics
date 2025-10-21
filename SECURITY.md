@@ -6,7 +6,7 @@
 
 Instead, please report them responsibly via email:
 
-**📧 Email:** [rob@devcrafted.io](mailto:rob@devcrafted.io)
+**📧 Email:** [contact@robsdevcraft.com](mailto:contact@robsdevcraft.com)
 
 **Subject:** `[SECURITY] Brief description of vulnerability`
 
