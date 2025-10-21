@@ -1,0 +1,39 @@
+# CODEOWNERS
+# 
+# This file defines who owns the code in this repository.
+# Code owners are automatically requested for review when someone opens a pull request.
+#
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+* @robsdevcraft
+
+# Core documentation
+/README.md @robsdevcraft
+/CONTRIBUTING.md @robsdevcraft
+/CODE_OF_CONDUCT.md @robsdevcraft
+/SECURITY.md @robsdevcraft
+/LICENSE @robsdevcraft
+
+# Repository configuration
+/.github/ @robsdevcraft
+/.changeset/ @robsdevcraft
+/turbo.json @robsdevcraft
+/package.json @robsdevcraft
+/pnpm-workspace.yaml @robsdevcraft
+
+# Documentation
+/docs/ @robsdevcraft
+
+# Applications
+/apps/js-client/ @robsdevcraft
+/apps/fastapi-fullstack/ @robsdevcraft
+
+# Shared packages (future)
+/packages/ @robsdevcraft
+
+# Build and deployment scripts
+/scripts/ @robsdevcraft
+
+# CI/CD workflows
+/.github/workflows/ @robsdevcraft

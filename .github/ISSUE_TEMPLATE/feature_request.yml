@@ -1,0 +1,113 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for suggesting a feature!
+        
+        Please fill out the sections below to help us understand your request.
+        
+        **Before submitting:**
+        - Search [existing issues](https://github.com/robsdevcraft/vapr-ballistics/issues) and [discussions](https://github.com/robsdevcraft/vapr-ballistics/discussions) for similar ideas
+        - Consider starting a [Discussion](https://github.com/robsdevcraft/vapr-ballistics/discussions/new?category=ideas) first to gather feedback
+        - Make sure the feature aligns with the project's goals
+
+  - type: dropdown
+    id: app
+    attributes:
+      label: Which app is this for?
+      description: Select the application this feature would affect
+      options:
+        - js-client (Client-only calculator)
+        - fastapi-fullstack (Full-stack app)
+        - Both apps
+        - New app / package
+        - Repository / tooling
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Use Case
+      description: What problem does this feature solve? Why do you need it?
+      placeholder: "I'm always frustrated when... / I need to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like this problem to be solved?
+      placeholder: "I would like to have... / It could work by..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What other solutions or workarounds have you considered?
+      placeholder: "I thought about... / Currently I work around this by..."
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples from Other Tools
+      description: Are there similar features in other ballistics calculators or tools?
+      placeholder: |
+        - Tool A does this by...
+        - Tool B has a feature where...
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: Mockups or Sketches
+      description: If applicable, add mockups, wireframes, or sketches
+      placeholder: Drag and drop images here or describe the UI
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How important is this to you?
+      description: Help us prioritize by indicating importance
+      options:
+        - Critical - Can't use the app without it
+        - High - Would significantly improve my workflow
+        - Medium - Nice to have, but I can work around it
+        - Low - Just a suggestion
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be willing to contribute this feature?
+      options:
+        - label: I'm willing to submit a PR to implement this feature
+        - label: I can help with testing and feedback
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context, links, or information about the feature request
+      placeholder: "Related to... / This would work well with..."
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please verify you've completed these steps
+      options:
+        - label: I searched existing issues and discussions for similar ideas
+          required: true
+        - label: I clearly explained the problem this solves
+          required: true
+        - label: This feature aligns with the project's goals (ballistics calculations)
+          required: true

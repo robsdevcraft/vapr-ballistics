@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Ask a Question
+    url: https://github.com/robsdevcraft/vapr-ballistics/discussions/new?category=q-a
+    about: Have a question? Ask in Discussions instead of opening an issue.
+  - name: 💡 Share an Idea
+    url: https://github.com/robsdevcraft/vapr-ballistics/discussions/new?category=ideas
+    about: Have a feature idea? Start a discussion to gather feedback first.
+  - name: 🗣️ General Discussion
+    url: https://github.com/robsdevcraft/vapr-ballistics/discussions/new?category=general
+    about: Want to discuss the project? Use Discussions for conversations.

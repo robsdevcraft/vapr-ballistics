@@ -1,0 +1,124 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for reporting a bug!
+        
+        Please fill out the sections below to help us reproduce and fix the issue.
+        
+        **Before submitting:**
+        - Search [existing issues](https://github.com/robsdevcraft/vapr-ballistics/issues) to avoid duplicates
+        - Try reproducing on the latest version
+        - For questions, use [Discussions](https://github.com/robsdevcraft/vapr-ballistics/discussions) instead
+
+  - type: dropdown
+    id: app
+    attributes:
+      label: Which app is affected?
+      description: Select the application where the bug occurs
+      options:
+        - js-client (Client-only calculator)
+        - fastapi-fullstack (Full-stack app)
+        - Both
+        - Other / Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: "When I do X, Y happens instead of Z..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Enter values '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: "I expected the trajectory to calculate correctly..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: "Instead, I got an error message / incorrect calculation..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Please provide your environment details
+      placeholder: |
+        - OS: [e.g., Windows 11, macOS 14, Ubuntu 22.04]
+        - Browser: [e.g., Chrome 120, Firefox 121, Safari 17]
+        - App Version: [e.g., v1.2.3 or commit hash]
+        - Node.js: [e.g., v20.11.0] (if relevant)
+        - Docker: [e.g., v24.0.7] (if relevant)
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Messages / Logs
+      description: Include any error messages, console logs, or stack traces
+      placeholder: |
+        ```
+        Paste error messages here
+        ```
+      render: shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Videos
+      description: If applicable, add screenshots or screen recordings
+      placeholder: Drag and drop images here or paste links
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context about the problem
+      placeholder: "This started happening after..."
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please verify you've completed these steps
+      options:
+        - label: I searched existing issues and didn't find a duplicate
+          required: true
+        - label: I can reproduce this bug consistently
+          required: true
+        - label: I'm using the latest version (or specified a version above)
+          required: true
+        - label: I provided all required information above
+          required: true
