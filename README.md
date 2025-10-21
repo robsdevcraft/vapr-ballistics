@@ -1,203 +1,96 @@
-![Image of VAPR Ballistics logo](/frontend/public/vapr-ballistics.svg "VAPR logo")
+# VAPR Ballistics
 
-# VAPR Ballistics Calculator
+Advanced ballistics calculator implementations in a Turborepo monorepo.
 
-A production-ready web application for advanced ballistic trajectory calculations using the [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) Python package.
+## 📦 Monorepo Structure
 
-## Features
+This repository contains two separate ballistics calculator implementations:
 
-- **Advanced Ballistics Calculations**: Powered by py-ballisticcalc for accurate trajectory modeling
-- **Modern Web Interface**: Built with Next.js 15+ and shadcn/ui components
-- **Interactive Charts**: Visualize trajectory data with responsive charts
-- **Form Validation**: Comprehensive input validation using Zod
-- **Production Ready**: Docker containerization, CI/CD, and security best practices
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
-
-## Tech Stack
-
-### Backend
-- **FastAPI**: Modern, fast web framework for building APIs
-- **py-ballisticcalc**: Professional ballistics calculation library
-- **Pydantic**: Data validation and settings management
-- **Uvicorn**: ASGI server for production deployment
-
-### Frontend
-- **Next.js 15**: React framework with App Router
-- **TypeScript**: Type-safe development
-- **shadcn/ui**: Modern UI components built on Radix UI
-- **Tailwind CSS**: Utility-first CSS framework
-- **Recharts**: Responsive chart library
-- **React Hook Form**: Performant forms with easy validation
-- **Zod**: TypeScript-first schema validation
-
-## Quick Start
-
-### Prerequisites
-
-- Python 3.11+
-- Node.js 18+
-- Docker (optional)
-
-### Development Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd ballistic-calculator
-   ```
-
-2. **Backend Setup**
-   ```bash
-   cd backend
-
-   # Create virtual environment
-   python -m venv venv
-
-   # Activate virtual environment
-   # Windows:
-   venv\Scripts\activate
-   # Linux/Mac:
-   source venv/bin/activate
-
-   # Install dependencies
-   pip install -r requirements-dev.txt
-
-   # Copy environment file
-   cp .env.example .env
-
-   # Run the development server
-   uvicorn app.main:app --reload --port 8000
-   ```
-
-3. **Frontend Setup** (in a new terminal)
-   ```bash
-   cd frontend
-
-   # Install dependencies
-   npm install
-
-   # Copy environment file
-   cp .env.example .env.local
-
-   # Run the development server
-   npm run dev
-   ```
-
-4. **Access the application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8000
-   - API Documentation: http://localhost:8000/docs
-
-### Docker Development
-
-Run the entire application with Docker Compose:
-
-```bash
-# Build and start all services
-docker-compose up --build
-
-# Run in background
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
+```
+vapr-ballistics/
+├── apps/
+│   ├── js-client/           # Pure client-side calculator (js-ballistics)
+│   └── fastapi-fullstack/   # Full-stack calculator (FastAPI + React)
+├── packages/                # Shared packages (future)
+└── docs/                    # Documentation
 ```
 
-## API Endpoints
+## 🎯 Applications
 
-### Health & Information
-- `GET /api/health` - Health check
-- `GET /api/info` - System information
+### 1. JS Client (`apps/js-client/`)
 
-### Ballistics Calculations
-- `POST /api/calculate` - Calculate trajectory
-- `GET /api/drag-models` - Available drag models
-- `POST /api/validate` - Validate parameters
+**Pure client-side ballistics calculator** - No backend required!
 
-### Example API Request
+- **Framework**: Next.js 15 with React 19
+- **Ballistics Engine**: [js-ballistics](https://www.npmjs.com/package/js-ballistics) v2.2.0-beta.1
+- **UI**: Shadcn/ui with Tailwind CSS v4
+- **Charts**: Recharts for trajectory visualization
+- **Deployment**: Static export, CDN-ready
 
-```json
-{
-  "weapon": {
-    "sight_height": 2.0,
-    "twist": 12.0
-  },
-  "ammo": {
-    "bc": 0.5,
-    "drag_model": "G1",
-    "muzzle_velocity": 2800,
-    "bullet_weight": 150
-  },
-  "atmosphere": {
-    "temperature": 59,
-    "pressure": 29.92,
-    "humidity": 0.5,
-    "altitude": 0
-  },
-  "wind": {
-    "speed": 10,
-    "direction": 3
-  },
-  "zero_distance": 100,
-  "max_range": 1000,
-  "step_size": 25
-}
+**Use Cases:**
+- Offline ballistics calculations
+- Embedded in static sites
+- Fast, lightweight deployments
+- No server costs
+
+**Quick Start:**
+```bash
+cd apps/js-client
+pnpm install
+pnpm dev
 ```
 
-## Configuration
-
-### Backend Environment Variables
-
+**Production Build:**
 ```bash
-# App Configuration
-APP_NAME=Ballistics Calculator API
-VERSION=1.0.0
-ENVIRONMENT=development
-DEBUG=true
-
-# Security
-SECRET_KEY=your-super-secret-key
-ALLOWED_HOSTS=["*"]
-ALLOWED_ORIGINS=["http://localhost:3000"]
-
-# Calculation Limits
-MAX_RANGE_YARDS=3000.0
-MIN_RANGE_YARDS=25.0
-MAX_STEP_SIZE=100.0
-MIN_STEP_SIZE=1.0
+cd apps/js-client
+pnpm build
+pnpm start
 ```
 
-### Frontend Environment Variables
+---
 
+### 2. FastAPI Fullstack (`apps/fastapi-fullstack/`)
+
+**Traditional full-stack application** with Python backend and React frontend.
+
+- **Backend**: FastAPI with [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc)
+- **Frontend**: Next.js 15 with React 19
+- **API**: RESTful with OpenAPI docs
+- **Deployment**: Docker Compose, multi-container
+
+**Use Cases:**
+- Advanced server-side calculations
+- API for mobile apps
+- Enterprise deployments
+- Complex ballistics modeling
+
+**Quick Start (Docker):**
 ```bash
-# API Configuration
-NEXT_PUBLIC_API_URL=http://localhost:8000
+cd apps/fastapi-fullstack/docker
+docker-compose -f docker-compose.dev.yml up --build
 ```
 
-## Testing
+**Access:**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+- API Docs: http://localhost:8000/docs
 
-### Backend Tests
-
+**Quick Start (Manual):**
 ```bash
-cd backend
+# Backend
+cd apps/fastapi-fullstack/backend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements-dev.txt
+uvicorn app.main:app --reload --port 8000
 
-# Run tests
-pytest
-
-# Run with coverage
-pytest --cov=app --cov-report=html
-
-# Run specific test file
-pytest tests/test_api.py -v
+# Frontend (new terminal)
+cd apps/fastapi-fullstack/frontend
+npm install
+npm run dev
 ```
 
-### Frontend Tests
-
-```bash
-cd frontend
+---
 
 # Type checking
 npm run type-check
@@ -304,73 +197,278 @@ ballistic-calculator/
 5. Open a Pull Request
 
 ## Development Workflow
+## 🚀 Getting Started
 
-1. **Backend Development**
-   - Make changes to FastAPI code
-   - Add tests for new features
-   - Run `pytest` to ensure tests pass
-   - Update API documentation if needed
+### Prerequisites
 
-2. **Frontend Development**
-   - Make changes to React components
-   - Ensure TypeScript types are correct
-   - Run `npm run lint` and `npm run build`
-   - Test API integration
+- **Node.js** 18+ and **pnpm** 10+ (for both apps)
+- **Python** 3.11+ (for FastAPI fullstack only)
+- **Docker** (optional, for FastAPI fullstack)
 
-3. **Testing Changes**
-   - Test locally with development servers
-   - Test with Docker Compose
-   - Verify API endpoints work correctly
-   - Check responsive design
+### Installation
 
-## Troubleshooting
+```bash
+# Clone the repository
+git clone https://github.com/robsdevcraft/vapr-ballistics.git
+cd vapr-ballistics
 
-### Common Issues
+# Install root dependencies (Turborepo)
+pnpm install
+```
 
-1. **Backend fails to start**
-   - Check Python version (3.11+ required)
-   - Verify virtual environment is activated
-   - Ensure all dependencies are installed
-   - Check environment variables
+### Development
 
-2. **Frontend build errors**
-   - Check Node.js version (18+ required)
-   - Clear node_modules and reinstall: `rm -rf node_modules package-lock.json && npm install`
-   - Verify environment variables
+**Run JS Client:**
+```bash
+pnpm --filter @vapr/js-client dev
+```
 
-3. **API connection issues**
-   - Verify backend is running on port 8000
-   - Check CORS configuration
-   - Verify NEXT_PUBLIC_API_URL is correct
+**Run FastAPI Fullstack (Docker):**
+```bash
+cd apps/fastapi-fullstack/docker
+docker-compose -f docker-compose.dev.yml up --build
+```
 
-4. **Docker issues**
-   - Ensure Docker is running
-   - Check for port conflicts
-   - Verify Docker Compose file syntax
-
-### Performance Optimization
-
-- Enable caching for API responses
-- Optimize Docker images for production
-- Use CDN for static assets
-- Implement API rate limiting
-- Add database for user sessions and saved calculations
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) - Excellent ballistics calculation library
-- [shadcn/ui](https://ui.shadcn.com/) - Beautiful UI components
-- [FastAPI](https://fastapi.tiangolo.com/) - Modern web framework
-- [Next.js](https://nextjs.org/) - React framework
-
-## Support
-
-For support, please open an issue on GitHub.
+**Build All Apps:**
+```bash
+pnpm build
+```
 
 ---
 
-**Note**: This application is for educational and recreational purposes. Always verify calculations with additional sources for critical applications.
+## 📊 Feature Comparison
+
+| Feature | JS Client | FastAPI Fullstack |
+|---------|-----------|-------------------|
+| **Backend Required** | ❌ No | ✅ Yes |
+| **Ballistics Engine** | js-ballistics | py-ballisticcalc |
+| **Offline Capable** | ✅ Yes | ❌ No |
+| **API Available** | ❌ No | ✅ Yes |
+| **Deployment Complexity** | Low (CDN) | Medium (Docker) |
+| **Server Costs** | None | Required |
+| **Best For** | Static sites, demos | Enterprise, mobile APIs |
+
+---
+
+## 🛠️ Tech Stack
+
+### Shared
+- **Monorepo**: Turborepo v2.5.8
+- **Package Manager**: pnpm v10.18.1
+- **Frontend Framework**: Next.js 15 with React 19
+- **UI Library**: Shadcn/ui with Tailwind CSS v4
+- **Charts**: Recharts v3.1.2
+- **Forms**: React Hook Form + Zod validation
+- **TypeScript**: Full type safety
+
+### JS Client Specific
+- **Ballistics**: js-ballistics v2.2.0-beta.1
+- **Deployment**: Static export
+
+### FastAPI Fullstack Specific
+- **Backend**: FastAPI with Python 3.11+
+- **Ballistics**: py-ballisticcalc v2.2.1+
+- **API Docs**: OpenAPI/Swagger
+- **Container**: Docker + Docker Compose
+- **Reverse Proxy**: Nginx (production)
+
+---
+
+## 📁 Project Structure
+
+```
+vapr-ballistics/
+├── apps/
+│   ├── js-client/                    # Client-only app
+│   │   ├── src/
+│   │   │   ├── app/                  # Next.js app router
+│   │   │   ├── components/           # React components
+│   │   │   ├── hooks/                # Custom hooks
+│   │   │   └── lib/                  # Utilities & ballistics
+│   │   ├── package.json
+│   │   └── next.config.ts
+│   │
+│   └── fastapi-fullstack/            # Fullstack app
+│       ├── backend/                  # FastAPI backend
+│       │   ├── app/
+│       │   │   ├── main.py
+│       │   │   ├── routers/
+│       │   │   ├── services/
+│       │   │   └── models/
+│       │   └── requirements.txt
+│       │
+│       ├── frontend/                 # Next.js frontend
+│       │   ├── src/
+│       │   │   ├── app/
+│       │   │   └── components/
+│       │   └── package.json
+│       │
+│       ├── docker/                   # Docker orchestration
+│       │   ├── docker-compose.yml
+│       │   ├── docker-compose.dev.yml
+│       │   ├── docker-compose.prod.yml
+│       │   └── nginx.conf
+│       │
+│       ├── scripts/                  # Development scripts
+│       │   ├── dev/
+│       │   ├── prod/
+│       │   └── deploy/
+│       │
+│       └── README.md
+│
+├── docs/                             # Documentation
+├── packages/                         # Shared packages (future)
+├── package.json                      # Root workspace config
+├── pnpm-workspace.yaml              # pnpm workspace definition
+└── turbo.json                        # Turborepo config
+```
+
+---
+
+## 🔧 Development Workflow
+
+### Working on JS Client
+
+```bash
+# Run dev server
+pnpm --filter @vapr/js-client dev
+
+# Build for production
+pnpm --filter @vapr/js-client build
+
+# Lint code
+pnpm --filter @vapr/js-client lint
+```
+
+### Working on FastAPI Fullstack
+
+**Using Docker (Recommended):**
+```bash
+cd apps/fastapi-fullstack/scripts/dev/windows
+start.bat  # Windows
+
+# Or Unix
+cd apps/fastapi-fullstack/scripts/dev/unix
+./start.sh
+```
+
+**Manual Development:**
+```bash
+# Backend
+cd apps/fastapi-fullstack/backend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements-dev.txt
+uvicorn app.main:app --reload --port 8000
+
+# Frontend (new terminal)
+cd apps/fastapi-fullstack/frontend
+npm install
+npm run dev
+```
+
+### Turborepo Commands
+
+```bash
+# Build all apps
+pnpm build
+
+# Run all dev servers
+pnpm dev
+
+# Lint all apps
+pnpm lint
+
+# Clean all builds
+pnpm clean
+```
+
+---
+
+## 📚 Documentation
+
+- **JS Client**: See `apps/js-client/README.md`
+- **FastAPI Fullstack**: See `apps/fastapi-fullstack/README.md`
+- **Migration Guide**: See `docs/js-ballistics-migration.md`
+- **Scripts Guide**: See `apps/fastapi-fullstack/scripts/README.md`
+
+---
+
+## 🐛 Troubleshooting
+
+### JS Client Issues
+
+**Port 3000 already in use:**
+```bash
+# Windows
+netstat -ano | findstr :3000
+taskkill /PID <PID> /F
+
+# Unix
+lsof -ti:3000 | xargs kill -9
+```
+
+**Build errors:**
+```bash
+cd apps/js-client
+rm -rf .next node_modules
+pnpm install
+pnpm build
+```
+
+### FastAPI Fullstack Issues
+
+**Docker build slow:**
+- The `.dockerignore` files should exclude `__pycache__`, `node_modules`, etc.
+- If build context is large, verify `.dockerignore` exists in `backend/` and `frontend/`
+
+**Backend won't start:**
+```bash
+cd apps/fastapi-fullstack/backend
+python --version  # Verify 3.11+
+pip install -r requirements.txt
+```
+
+**Frontend API connection:**
+- Verify `NEXT_PUBLIC_API_URL` in `.env.local`
+- Check backend is running on port 8000
+- Review CORS settings in backend
+
+---
+
+## 📝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- **[js-ballistics](https://www.npmjs.com/package/js-ballistics)** - Client-side ballistics library
+- **[py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc)** - Python ballistics library
+- **[shadcn/ui](https://ui.shadcn.com/)** - Beautiful UI components
+- **[FastAPI](https://fastapi.tiangolo.com/)** - Modern Python web framework
+- **[Next.js](https://nextjs.org/)** - React framework
+- **[Turborepo](https://turbo.build/)** - High-performance monorepo build system
+
+---
+
+## 📧 Support
+
+For issues, questions, or contributions:
+- **GitHub Issues**: [vapr-ballistics/issues](https://github.com/robsdevcraft/vapr-ballistics/issues)
+- **Repository**: [github.com/robsdevcraft/vapr-ballistics](https://github.com/robsdevcraft/vapr-ballistics)
+
+---
+
+**⚠️ Disclaimer**: This application is for educational and recreational purposes. Always verify ballistics calculations with additional sources for critical applications.
