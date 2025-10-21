@@ -2,10 +2,12 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  // Disable standalone for monorepo (Windows symlink issues)
-  // output: process.env.NODE_ENV === 'production' ? 'standalone' : undefined,
-  // Set workspace root for monorepo
-  outputFileTracingRoot: path.join(__dirname, '../../'),
+  // Disable standalone for monorepo to avoid symlink issues on Windows
+  output: undefined,
+  
+  // Point to monorepo root for file tracing
+  outputFileTracingRoot: path.join(__dirname, "../../"),
+  
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
