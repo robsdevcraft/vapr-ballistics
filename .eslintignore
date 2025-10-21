@@ -1,0 +1,66 @@
+# Dependencies
+node_modules/
+.pnp.*
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.turbo/
+*.tsbuildinfo
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Generated files
+*.min.js
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Config files (avoid linting configs)
+*.config.js
+*.config.ts
+*.config.mjs
+*.config.cjs
+
+# Public assets
+public/
+
+# Environment files
+.env*
+
+# IDE
+.vscode/
+.idea/
+
+# Test snapshots
+**/__snapshots__/
+
+# Storybook
+.storybook/
+storybook-static/
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+
+# Scripts (optional - comment out if you want to lint scripts)
+# scripts/
