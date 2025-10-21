@@ -1,4 +1,4 @@
-![Image of VAPR Ballistics logo](/frontend/public/vapr-ballistics.svg "VAPR logo")
+![Image of VAPR Ballistics logo](/apps/fastapi-fullstack/frontend/public/vapr-ballistics.svg "VAPR logo")
 
 # VAPR Ballistics
 
