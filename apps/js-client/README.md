@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VAPR Ballistics - JS Client
 
-## Getting Started
+Pure client-side ballistics calculator using [js-ballistics](https://www.npmjs.com/package/js-ballistics). **No backend required!**
 
-First, run the development server:
+## ✨ Features
+
+- ✅ **Client-Side Only**: Runs entirely in the browser, no server needed
+- ✅ **Offline Capable**: Works without internet connection
+- ✅ **Interactive Charts**: Drop chart, windage chart, and velocity chart
+- ✅ **Windage Indicators**: L/R directional indicators for top-down view
+- ✅ **CSV Export**: Export trajectory data to CSV
+- ✅ **Theme Support**: Light and dark mode
+- ✅ **Responsive Design**: Works on desktop and mobile
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 15 with React 19
+- **Ballistics Engine**: js-ballistics v2.2.0-beta.1
+- **UI Library**: Shadcn/ui with Tailwind CSS v4
+- **Charts**: Recharts v3.1.2
+- **Forms**: React Hook Form + Zod validation
+- **Icons**: Lucide React
+
+## 📦 Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# From the monorepo root
+pnpm install
+
+# Or directly in this directory
+cd apps/js-client
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Run dev server
+pnpm dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Build for production
+pnpm build
 
-## Learn More
+# Start production server
+pnpm start
 
-To learn more about Next.js, take a look at the following resources:
+# Lint code
+pnpm lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Dev server runs on:** http://localhost:3000
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🏗️ Build Output
 
-## Deploy on Vercel
+This app is configured for the monorepo and uses:
+- `outputFileTracingRoot` pointing to monorepo root
+- Standalone output disabled (to avoid Windows symlink issues)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📊 Ballistics Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Drop Chart**: Bullet drop trajectory visualization
+- **Windage Chart**: Wind drift with L/R indicators (top-down view)
+- **Velocity Chart**: Velocity over distance
+- **Data Table**: Complete trajectory data with CSV export
+- **Input Validation**: Comprehensive form validation with Zod
+
+## 🎨 UI Components
+
+Built with shadcn/ui components:
+- Tabs for chart navigation
+- Cards for data display
+- Forms with validation
+- Theme toggle (light/dark mode)
+- Responsive tables
+- Toast notifications
+
+## 📱 Deployment
+
+Since this is a pure client-side app, you can deploy it anywhere static files are served:
+
+- **Vercel** (recommended for Next.js)
+- **Netlify**
+- **GitHub Pages**
+- **AWS S3 + CloudFront**
+- **Any CDN or static host**
+
+```bash
+# Build for static export (if configured)
+pnpm build
+```
+
+## 🔧 Configuration
+
+The app uses js-ballistics for calculations. No backend configuration needed!
+
+For monorepo-specific settings, see `next.config.ts`:
+- outputFileTracingRoot for proper file tracing
+- Optimized package imports for lucide-react
+
+## 📄 License
+
+MIT License - See root LICENSE file
+
+---
+
+**Part of the VAPR Ballistics monorepo** - See root README for more information.

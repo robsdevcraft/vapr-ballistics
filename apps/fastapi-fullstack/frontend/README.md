@@ -1,33 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FastAPI Fullstack - Frontend
 
-## Getting Started
+Next.js frontend for the VAPR Ballistics FastAPI fullstack application.
 
-First, run the development server:
+## Overview
 
+This frontend connects to the FastAPI backend for server-side ballistics calculations using [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc).
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with React 19
+- **UI Library**: Shadcn/ui with Tailwind CSS v4
+- **Charts**: Recharts
+- **Forms**: React Hook Form + Zod validation
+- **API Client**: Fetch API
+
+## Development
+
+**Standalone (requires backend running on port 8000):**
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**With Docker (recommended):**
+```bash
+cd ../docker
+docker-compose -f docker-compose.dev.yml up --build
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file:
 
-## Learn More
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
 
-To learn more about Next.js, take a look at the following resources:
+## API Integration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This frontend makes requests to the FastAPI backend at `/api/ballistics/calculate`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+See the parent README (`apps/fastapi-fullstack/README.md`) for full stack setup instructions.
+
+---
+
+**Part of the FastAPI Fullstack app** - See `apps/fastapi-fullstack/README.md` for complete documentation.
 
 ## Deploy on Vercel
 
