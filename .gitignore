@@ -80,6 +80,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Turborepo
+.turbo
+
 # Next.js
 .next/
 out/
