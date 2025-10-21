@@ -122,9 +122,7 @@ Paste test results here if applicable
 <!-- List any related PRs or issues -->
 
 -
--
-
----
+- ***
 
 ## 💬 Additional Notes
 
@@ -139,13 +137,9 @@ Paste test results here if applicable
 **Areas needing extra review:**
 
 -
--
-
-**Questions for maintainer:**
+- **Questions for maintainer:**
 
 -
--
-
----
+- ***
 
 <!-- Thank you for contributing to VAPR Ballistics! 🎯 -->
