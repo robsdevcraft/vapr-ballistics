@@ -2,16 +2,17 @@
 
 # VAPR Ballistics
 
-Advanced ballistics calculator implementations in a Turborepo monorepo.
+**Free and open-source ballistics calculators.** Privacy-first, actively developed, always free.
 
 ## 📦 Monorepo Structure
 
-This repository contains two separate ballistics calculator implementations:
+This repository contains three applications:
 
 ```
 vapr-ballistics/
 ├── apps/
-│   ├── js-client/           # Pure client-side calculator (js-ballistics)
+│   ├── landing-page/        # Marketing site (vaprballistics.com)
+│   ├── js-client/           # Pure client-side calculator
 │   └── fastapi-fullstack/   # Full-stack calculator (FastAPI + React)
 ├── packages/                # Shared packages (future)
 └── docs/                    # Documentation
@@ -21,7 +22,26 @@ vapr-ballistics/
 
 ## 🎯 Applications
 
-### 1. JS Client (`apps/js-client/`)
+### 1. Landing Page (`apps/landing-page/`)
+
+**Marketing website** for vaprballistics.com
+
+- **Framework**: Next.js 16 with React 19
+- **UI**: shadcn/ui with Tailwind CSS v4
+- **Deployment**: Static export, CDN-ready
+- **Port**: 3002
+
+**Quick Start:**
+
+```bash
+cd apps/landing-page
+pnpm install
+pnpm dev
+```
+
+---
+
+### 2. JS Client (`apps/js-client/`)
 
 **Pure client-side ballistics calculator** - No backend required!
 
@@ -31,10 +51,23 @@ vapr-ballistics/
 - **Charts**: Recharts for trajectory visualization
 - **Deployment**: Static export, CDN-ready
 
+---
+
+### 2. JS Client (`apps/js-client/`)
+
+**Pure client-side ballistics calculator** - No backend required!
+
+- **Framework**: Next.js 15 with React 19
+- **Ballistics Engine**: [js-ballistics](https://www.npmjs.com/package/js-ballistics) v2.2.0-beta.1
+- **UI**: Shadcn/ui with Tailwind CSS v4
+- **Charts**: Recharts for trajectory visualization
+- **Deployment**: Static export, CDN-ready
+- **Port**: 3000
+
 **Use Cases:**
 
 - Offline ballistics calculations
-- Embedded in static sites
+- Privacy-first (no data leaves your device)
 - Fast, lightweight deployments
 - No server costs
 
@@ -46,17 +79,9 @@ pnpm install
 pnpm dev
 ```
 
-**Production Build:**
-
-```bash
-cd apps/js-client
-pnpm build
-pnpm start
-```
-
 ---
 
-### 2. FastAPI Fullstack (`apps/fastapi-fullstack/`)
+### 3. FastAPI Fullstack (`apps/fastapi-fullstack/`)
 
 **Traditional full-stack application** with Python backend and React frontend.
 
