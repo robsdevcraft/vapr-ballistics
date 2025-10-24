@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Target, Calculator, Zap, Globe } from "lucide-react";
+import { Target, Zap, Github, Lock, Code2 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import Image from "next/image";
+import { Logo } from "@/components/logo";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -11,21 +12,14 @@ export default function Home() {
       {/* Header */}
       <header className="container mx-auto px-6 py-6 flex justify-between items-center">
         <div className="flex items-center">
-          <a href="/" className="flex items-center">
-            <Image 
-              src="/vapr-ballistics.svg" 
-              alt="VAPR Ballistics" 
-              width={120}
-              height={32}
-              className="h-8 w-auto transition-opacity hover:opacity-80"
-              priority
-            />
-          </a>
+          <Link href="/" className="flex items-center">
+            <Logo />
+          </Link>
         </div>
         <ThemeToggle />
       </header>
       {/* Hero Section */}
-      <div className="container mx-auto px-6 py-24">
+      <section className="container mx-auto px-6 py-24">
         <div className="text-center space-y-8 max-w-4xl mx-auto">
           <Badge variant="secondary" className="mb-4">
             Free & Open Source • Privacy First
@@ -42,20 +36,18 @@ export default function Home() {
           </p>
           
           <div className="flex gap-4 justify-center flex-col sm:flex-row">
-            <Button size="lg" className="h-12 px-8">
-              <Calculator className="mr-2 h-5 w-5" />
-              Launch Calculator
-            </Button>
-            <Button variant="outline" size="lg" className="h-12 px-8">
-              <Globe className="mr-2 h-5 w-5" />
-              View on GitHub
+            <Button asChild size="lg" className="h-12 px-8">
+              <a href="https://github.com/robsdevcraft/vapr-ballistics" target="_blank" rel="noopener noreferrer">
+                <Github className="mr-2 h-5 w-5" />
+                View on GitHub
+              </a>
             </Button>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Features Section */}
-      <div className="container mx-auto px-6 py-16">
+      <section className="container mx-auto px-6 py-16">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold mb-4">Why Open Source Matters</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -83,7 +75,7 @@ export default function Home() {
 
           <Card className="border-muted">
             <CardHeader>
-              <Calculator className="h-8 w-8 text-primary mb-2" />
+              <Lock className="h-8 w-8 text-primary mb-2" />
               <CardTitle>Privacy by Default</CardTitle>
               <CardDescription>
                 All calculations run locally. Zero tracking, no analytics, no data collection.
@@ -115,32 +107,50 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
-      </div>
+      </section>
 
       {/* CTA Section */}
-      <div className="container mx-auto px-6 py-24">
-        <div className="text-center space-y-8 max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold">Ready to Get Started?</h2>
-          <p className="text-xl text-muted-foreground">
-            Join the open-source ballistics community. No signup, no tracking, just accurate calculations.
-          </p>
-          
-          <div className="flex gap-4 justify-center flex-col sm:flex-row">
-            <Button size="lg" className="h-12 px-8">
-              Launch Calculator
+      <section className="container mx-auto px-6 py-24">
+        <Card className="border-2 border-primary/20 bg-muted/50">
+          <CardHeader className="text-center space-y-4 pb-4">
+            <CardTitle className="text-3xl font-bold">Ready to Get Started?</CardTitle>
+            <CardDescription className="text-xl max-w-2xl mx-auto">
+              Join the open-source ballistics community. No signup, no tracking, just accurate calculations.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex gap-4 justify-center flex-col sm:flex-row pb-8">
+            <Button asChild size="lg" className="h-12 px-8">
+              <a href="https://github.com/robsdevcraft/vapr-ballistics" target="_blank" rel="noopener noreferrer">
+                <Github className="mr-2 h-5 w-5" />
+                Star on GitHub
+              </a>
             </Button>
-            <Button variant="ghost" size="lg" className="h-12 px-8">
-              Contribute on GitHub
+            <Button asChild variant="outline" size="lg" className="h-12 px-8">
+              <a href="https://github.com/robsdevcraft/vapr-ballistics#contributing" target="_blank" rel="noopener noreferrer">
+                <Code2 className="mr-2 h-5 w-5" />
+                Contribute
+              </a>
             </Button>
-          </div>
-        </div>
-      </div>
+          </CardContent>
+        </Card>
+      </section>
 
       {/* Footer */}
       <footer className="border-t bg-muted/30">
         <div className="container mx-auto px-6 py-8">
-          <div className="text-center text-sm text-muted-foreground">
-            <p>&copy; 2025 VAPR Ballistics. Open source, privacy-first, always free.</p>
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Badge variant="outline">MIT License</Badge>
+              <Badge variant="outline">Open Source</Badge>
+            </div>
+            <p className="text-sm text-muted-foreground text-center">
+              &copy; 2025 VAPR Ballistics. Privacy-first, always free.
+            </p>
+            <Button asChild variant="ghost" size="sm">
+              <a href="https://github.com/robsdevcraft/vapr-ballistics" target="_blank" rel="noopener noreferrer">
+                <Github className="h-4 w-4" />
+              </a>
+            </Button>
           </div>
         </div>
       </footer>
