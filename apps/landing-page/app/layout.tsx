@@ -14,15 +14,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VAPR Ballistics - Precision Ballistics Made Simple",
-  description: "Professional-grade ballistics calculators for shooters, hunters, and enthusiasts. Get accurate trajectory calculations with real-time data.",
-  keywords: "ballistics, calculator, trajectory, shooting, hunting, precision, MOA, ballistics coefficient",
+  title: "VAPR Ballistics - Open Source Ballistics Built for Privacy",
+  description: "Free and open-source ballistics calculators under active development. Your data stays on your device. No tracking, no accounts, no compromises.",
+  keywords: "ballistics, calculator, trajectory, shooting, hunting, precision, MOA, ballistics coefficient, open source, privacy",
   openGraph: {
-    title: "VAPR Ballistics - Precision Ballistics Made Simple",
-    description: "Professional-grade ballistics calculators for shooters, hunters, and enthusiasts.",
+    title: "VAPR Ballistics - Open Source Ballistics Built for Privacy",
+    description: "Free and open-source ballistics calculators. Your data stays on your device. No tracking, no accounts.",
     url: "https://vaprballistics.com",
     siteName: "VAPR Ballistics",
     type: "website",
+  },
+  icons: {
+    icon: '/icon.svg',
   },
 };
 
