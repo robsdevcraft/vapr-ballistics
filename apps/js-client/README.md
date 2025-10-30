@@ -11,11 +11,17 @@ Pure client-side ballistics calculator using [js-ballistics](https://www.npmjs.c
 - ✅ **CSV Export**: Export trajectory data to CSV
 - ✅ **Theme Support**: Light and dark mode
 - ✅ **Responsive Design**: Works on desktop and mobile
+- ✅ **Local Data Storage**: Save profiles, history, and presets with Dexie.js/IndexedDB
+- ✅ **Profile Management**: Save and load complete calculation configurations
+- ✅ **Calculation History**: Automatic history tracking with search and export
+- ✅ **Preset Libraries**: Weapon, ammo, and atmospheric condition presets
+- ✅ **Data Backup**: Export/import all data as JSON for backup and portability
 
 ## 🚀 Tech Stack
 
 - **Framework**: Next.js 15 with React 19
 - **Ballistics Engine**: js-ballistics v2.2.0-beta.1
+- **Database**: Dexie.js (IndexedDB wrapper) with React Hooks
 - **UI Library**: Shadcn/ui with Tailwind CSS v4
 - **Charts**: Recharts v3.1.2
 - **Forms**: React Hook Form + Zod validation
@@ -64,6 +70,19 @@ This app is configured for the monorepo and uses:
 - **Velocity Chart**: Velocity over distance
 - **Data Table**: Complete trajectory data with CSV export
 - **Input Validation**: Comprehensive form validation with Zod
+
+## 💾 Data Persistence Features
+
+- **Profiles**: Save complete calculation setups with names and descriptions
+- **History**: Automatic tracking of all calculations with search capability
+- **Weapon Presets**: Library of saved weapon configurations
+- **Ammo Presets**: Library of saved ammunition data
+- **Atmosphere Presets**: Pre-configured and custom weather conditions
+- **Backup/Restore**: Full data export/import in JSON format
+- **Favorites**: Mark frequently used profiles and presets
+- **Search**: Fast searching across all saved data
+
+See [DEXIE_INTEGRATION.md](./DEXIE_INTEGRATION.md) for complete documentation on data persistence features.
 
 ## 🎨 UI Components
 

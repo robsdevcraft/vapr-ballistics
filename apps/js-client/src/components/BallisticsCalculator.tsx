@@ -44,9 +44,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ProfileManager } from "@/components/ProfileManager";
+import { HistoryViewer } from "@/components/HistoryViewer";
+import { PresetLibrary } from "@/components/PresetLibrary";
+import { DataManager } from "@/components/DataManager";
 import { toast } from "sonner";
 import { useBallisticsCalculator } from "@/hooks/useBallisticsCalculator";
+import { useHistory, usePreferences, useDatabaseContext } from "@/hooks/useDatabase";
 import type { CalculationResponse } from "@/lib/ballistics";
+import type { CalculationProfile, CalculationHistory as CalculationHistoryType, WeaponPreset, AmmoPreset, AtmospherePreset } from "@/lib/db/schema";
 
 // ZOD Validation schema
 const formSchema = z.object({
@@ -82,6 +88,9 @@ export default function BallisticsCalculator() {
   const [validationMessage, setValidationMessage] = useState<string | null>(null);
   const { calculate, validate, loading, error, resetError } = useBallisticsCalculator();
   const { theme } = useTheme();
+  const { add: addHistory } = useHistory();
+  const { preferences } = usePreferences();
+  const { isSupported: dbSupported } = useDatabaseContext();
 
   // Theme-aware chart colors for grid and axes
   const isDark = theme === "dark";
@@ -151,6 +160,20 @@ export default function BallisticsCalculator() {
     try {
       const result = await calculate(data);
       setResults(result);
+      
+      // Auto-save to history if enabled and database is supported
+      if (dbSupported && preferences?.autoSaveHistory !== false) {
+        try {
+          await addHistory({
+            request: data,
+            response: result,
+          });
+        } catch (historyError) {
+          console.error("Failed to save to history:", historyError);
+          // Don't show error to user, just log it
+        }
+      }
+      
       toast.success("Calculation complete - Please open the Data tab to view results");
     } catch (err) {
       const message = err instanceof Error ? err.message : "An unexpected error occurred";
@@ -225,22 +248,109 @@ export default function BallisticsCalculator() {
     toast.success("Trajectory data exported to CSV");
   };
 
+  // Load profile handler
+  const handleLoadProfile = (profile: CalculationProfile) => {
+    // Convert null twist values to undefined for the form
+    const requestData = {
+      ...profile.request,
+      weapon: {
+        ...profile.request.weapon,
+        twist: profile.request.weapon.twist ?? undefined,
+      },
+      ammo: {
+        ...profile.request.ammo,
+        bullet_weight: profile.request.ammo.bullet_weight ?? undefined,
+        bullet_diameter: profile.request.ammo.bullet_diameter ?? undefined,
+      },
+    };
+    form.reset(requestData);
+    toast.success(`Profile "${profile.name}" loaded`);
+  };
+
+  // Load history handler
+  const handleLoadHistory = (entry: CalculationHistoryType) => {
+    // Convert null values to undefined for the form
+    const requestData = {
+      ...entry.request,
+      weapon: {
+        ...entry.request.weapon,
+        twist: entry.request.weapon.twist ?? undefined,
+      },
+      ammo: {
+        ...entry.request.ammo,
+        bullet_weight: entry.request.ammo.bullet_weight ?? undefined,
+        bullet_diameter: entry.request.ammo.bullet_diameter ?? undefined,
+      },
+    };
+    form.reset(requestData);
+    setResults(entry.response);
+    toast.success("Calculation loaded from history");
+  };
+
+  // Load preset handlers
+  const handleLoadWeapon = (preset: WeaponPreset) => {
+    form.setValue("weapon.sight_height", preset.sight_height);
+    if (preset.twist !== null && preset.twist !== undefined) {
+      form.setValue("weapon.twist", preset.twist);
+    }
+    toast.success(`Weapon preset "${preset.name}" loaded`);
+  };
+
+  const handleLoadAmmo = (preset: AmmoPreset) => {
+    form.setValue("ammo.bc", preset.bc);
+    form.setValue("ammo.drag_model", preset.drag_model);
+    form.setValue("ammo.muzzle_velocity", preset.muzzle_velocity);
+    if (preset.bullet_weight) {
+      form.setValue("ammo.bullet_weight", preset.bullet_weight);
+    }
+    toast.success(`Ammo preset "${preset.name}" loaded`);
+  };
+
+  const handleLoadAtmosphere = (preset: AtmospherePreset) => {
+    form.setValue("atmosphere.temperature", preset.temperature);
+    form.setValue("atmosphere.pressure", preset.pressure);
+    form.setValue("atmosphere.humidity", preset.humidity);
+    form.setValue("atmosphere.altitude", preset.altitude);
+    toast.success(`Atmosphere preset "${preset.name}" loaded`);
+  };
+
   return (
     <div className="bg-background min-h-screen p-4">
       <div className="mx-auto max-w-7xl">
-        {/* Header with Theme Toggle */}
-        <div className="mb-8 flex items-start justify-between">
-          <header className="flex-1 text-center">
-            <h1 className="text-foreground mb-2 text-4xl font-bold">
-              Ballistics Calculator (Mil-based)
-            </h1>
-            <p className="text-muted-foreground">
-              Advanced trajectory calculation with milliradian adjustments
-            </p>
-          </header>
-          <div className="ml-4">
-            <ThemeToggle />
+        {/* Header with Theme Toggle and Tools */}
+        <div className="mb-8">
+          <div className="flex items-start justify-between">
+            <header className="flex-1 text-center">
+              <h1 className="text-foreground mb-2 text-4xl font-bold">
+                Ballistics Calculator (Mil-based)
+              </h1>
+              <p className="text-muted-foreground">
+                Advanced trajectory calculation with milliradian adjustments
+              </p>
+            </header>
+            <div className="ml-4">
+              <ThemeToggle />
+            </div>
           </div>
+          
+          {/* Tool Bar */}
+          {dbSupported && (
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+              <ProfileManager
+                currentData={form.getValues()}
+                onLoadProfile={handleLoadProfile}
+              />
+              <HistoryViewer onLoadHistory={handleLoadHistory} />
+              <PresetLibrary
+                onLoadWeapon={handleLoadWeapon}
+                onLoadAmmo={handleLoadAmmo}
+                onLoadAtmosphere={handleLoadAtmosphere}
+                currentWeapon={form.getValues("weapon")}
+                currentAmmo={form.getValues("ammo")}
+              />
+              <DataManager />
+            </div>
+          )}
         </div>
 
         <Tabs defaultValue="inputs" className="space-y-6">
