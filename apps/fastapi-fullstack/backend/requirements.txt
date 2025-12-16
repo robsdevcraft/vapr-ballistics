@@ -1,8 +1,8 @@
 # Core dependencies
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-pydantic==2.5.0
-pydantic-settings==2.1.0
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
 
 # Ballistics calculation - use exact package name from PyPI
 py-ballisticcalc>=2.2.1
@@ -14,16 +14,16 @@ py-ballisticcalc>=2.2.1
 # numpy
 
 # Development and testing
-pytest==7.4.3
-pytest-asyncio==0.21.1
-httpx==0.25.2
-black==24.3.0
-flake8==6.1.0
-isort==5.12.0
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
+httpx>=0.28.0
+black>=24.10.0
+flake8>=7.1.0
+isort>=5.13.0
 
 # Production
-gunicorn==22.0.0
-python-multipart==0.0.18
+gunicorn>=23.0.0
+python-multipart>=0.0.18
 
 # Logging and monitoring
-python-json-logger==2.0.7
+python-json-logger>=3.2.0
