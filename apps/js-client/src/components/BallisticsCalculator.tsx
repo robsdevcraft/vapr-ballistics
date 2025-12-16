@@ -232,7 +232,7 @@ export default function BallisticsCalculator() {
         <div className="mb-8 flex items-start justify-between">
           <header className="flex-1 text-center">
             <h1 className="text-foreground mb-2 text-4xl font-bold">
-              Ballistics Calculator (Mil-based)
+              VAPR Ballistics (Mil-based)
             </h1>
             <p className="text-muted-foreground">
               Advanced trajectory calculation with milliradian adjustments
