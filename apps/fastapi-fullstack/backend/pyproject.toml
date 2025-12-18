@@ -23,7 +23,7 @@ dependencies = [
     "uvicorn[standard]>=0.24.0",
     "pydantic>=2.5.0",
     "pydantic-settings>=2.1.0",
-    "py-ballisticcalc>=2.0.0",
+    "py-ballisticcalc>=2.2.6.post1",
 ]
 
 [project.optional-dependencies]

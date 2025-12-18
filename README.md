@@ -46,7 +46,7 @@ pnpm dev
 **Pure client-side ballistics calculator** - No backend required!
 
 - **Framework**: Next.js 15 with React 19
-- **Ballistics Engine**: [js-ballistics](https://www.npmjs.com/package/js-ballistics) v2.2.0-beta.1
+- **Ballistics Engine**: [js-ballistics](https://www.npmjs.com/package/js-ballistics) v2.2.0-beta.2
 - **UI**: Shadcn/ui with Tailwind CSS v4
 - **Charts**: Recharts for trajectory visualization
 - **Deployment**: Static export, CDN-ready
@@ -58,7 +58,7 @@ pnpm dev
 **Pure client-side ballistics calculator** - No backend required!
 
 - **Framework**: Next.js 15 with React 19
-- **Ballistics Engine**: [js-ballistics](https://www.npmjs.com/package/js-ballistics) v2.2.0-beta.1
+- **Ballistics Engine**: [js-ballistics](https://www.npmjs.com/package/js-ballistics) v2.2.0-beta.2
 - **UI**: Shadcn/ui with Tailwind CSS v4
 - **Charts**: Recharts for trajectory visualization
 - **Deployment**: Static export, CDN-ready
@@ -198,13 +198,13 @@ pnpm build
 
 ### JS Client Specific
 
-- **Ballistics**: js-ballistics v2.2.0-beta.1
+- **Ballistics**: js-ballistics v2.2.0-beta.2
 - **Deployment**: Static export
 
 ### FastAPI Fullstack Specific
 
 - **Backend**: FastAPI with Python 3.11+
-- **Ballistics**: py-ballisticcalc v2.2.1+
+- **Ballistics**: py-ballisticcalc v2.2.6.post1+
 - **API Docs**: OpenAPI/Swagger
 - **Container**: Docker + Docker Compose
 - **Reverse Proxy**: Nginx (production)
