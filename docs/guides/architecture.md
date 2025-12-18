@@ -67,7 +67,7 @@ vapr-ballistics/
 │                  ↓                       │
 │  ┌───────────────────────────────────┐  │
 │  │   js-ballistics Library           │  │
-│  │   v2.2.0-beta.1 (via npm)         │  │
+│  │   v2.2.0-beta.2 (via npm)         │  │
 │  │  - Pure TypeScript calculations   │  │
 │  └───────────────────────────────────┘  │
 └─────────────────────────────────────────┘
@@ -84,7 +84,7 @@ vapr-ballistics/
 
 - **Framework:** Next.js 15 (React 19)
 - **Language:** TypeScript
-- **Ballistics Engine:** [js-ballistics](https://github.com/robsdevcraft/js-ballistics) v2.2.0-beta.1
+- **Ballistics Engine:** [js-ballistics](https://github.com/robsdevcraft/js-ballistics) v2.2.0-beta.2
 - **Styling:** Tailwind CSS + shadcn/ui components
 - **Charts:** Recharts
 - **Build Output:** Static HTML
@@ -140,7 +140,7 @@ No server communication - all calculations happen in-memory.
 
 - **Framework:** FastAPI
 - **Language:** Python 3.11+
-- **Ballistics Engine:** [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) v2.2.1+
+- **Ballistics Engine:** [py-ballisticcalc](https://github.com/o-murphy/py-ballisticcalc) v2.2.6.post1+
 - **Server:** Uvicorn
 - **Containerization:** Docker
 
@@ -190,7 +190,7 @@ Display results in UI
 | Category       | Technology                 | Purpose                            |
 | -------------- | -------------------------- | ---------------------------------- |
 | **Framework**  | Next.js 15                 | React framework with static export |
-| **Ballistics** | js-ballistics 2.2.0-beta.1 | Pure JS/TS ballistics calculations |
+| **Ballistics** | js-ballistics 2.2.0-beta.2 | Pure JS/TS ballistics calculations |
 | **Charts**     | Recharts                   | Trajectory visualization           |
 | **Theme**      | next-themes                | Dark/light mode                    |
 
@@ -199,7 +199,7 @@ Display results in UI
 | Category       | Technology              | Purpose                               |
 | -------------- | ----------------------- | ------------------------------------- |
 | **Backend**    | FastAPI                 | High-performance Python API framework |
-| **Ballistics** | py-ballisticcalc 2.2.1+ | Python ballistics engine              |
+| **Ballistics** | py-ballisticcalc 2.2.6.post1+ | Python ballistics engine              |
 | **Server**     | Uvicorn                 | ASGI server                           |
 | **Frontend**   | Next.js 14              | React frontend for API consumption    |
 | **Container**  | Docker                  | Isolated deployments                  |
