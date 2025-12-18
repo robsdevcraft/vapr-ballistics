@@ -94,8 +94,7 @@ class BallisticsService:
             result = self.calculator.fire(
                 shot,
                 trajectory_range=trajectory_range,
-                trajectory_step=trajectory_step,
-                extra_data=True
+                trajectory_step=trajectory_step
             )
 
             # Extract trajectory data from HitResult object
@@ -177,14 +176,18 @@ class BallisticsService:
 
             # Extract drop adjustment in Mil
             drop_adj = 0.0
-            if hasattr(point, 'drop_adj'):
+            if hasattr(point, 'drop_angle'):
+                drop_adj = float(point.drop_angle >> Angular.Mil)
+            elif hasattr(point, 'drop_adj'):
                 drop_adj = float(point.drop_adj >> Angular.Mil)
             elif hasattr(point, 'drop_adjustment'):
                 drop_adj = float(point.drop_adjustment >> Angular.Mil)
 
             # Extract windage adjustment in Mil
             windage_adj = 0.0
-            if hasattr(point, 'windage_adj'):
+            if hasattr(point, 'windage_angle'):
+                windage_adj = float(point.windage_angle >> Angular.Mil)
+            elif hasattr(point, 'windage_adj'):
                 windage_adj = float(point.windage_adj >> Angular.Mil)
             elif hasattr(point, 'windage_adjustment'):
                 windage_adj = float(point.windage_adjustment >> Angular.Mil)
