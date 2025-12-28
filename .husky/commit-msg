@@ -1,2 +1,80 @@
 # Validate commit message format using commitlint
+
+# #region agent log
+LOG_FILE="c:/Users/veter/Desktop/DEV/github/vapr-ballistics/.cursor/debug.log"
+echo "{\"id\":\"log_$(date +%s)_hook_start\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:1\",\"message\":\"Hook started\",\"data\":{\"arg1\":\"$1\",\"PATH\":\"$PATH\",\"PWD\":\"$PWD\",\"SHELL\":\"$SHELL\"},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"A\"}" >> "$LOG_FILE"
+# #endregion
+
+# Find Node.js and add to PATH if not already available
+# #region agent log
+which node > /dev/null 2>&1 && NODE_FOUND="yes" || NODE_FOUND="no"
+# Check node_modules/.bin first (husky already adds it to PATH)
+if [ "$NODE_FOUND" = "no" ] && { [ -f "node_modules/.bin/node" ] || [ -f "node_modules/.bin/node.exe" ]; }; then
+  # node_modules/.bin is already in PATH from husky, so node should be available
+  if which node > /dev/null 2>&1; then
+    NODE_FOUND="yes"
+    # #region agent log
+    echo "{\"id\":\"log_$(date +%s)_node_in_modules\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:11\",\"message\":\"Node.js found in node_modules/.bin\",\"data\":{},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+    # #endregion
+  fi
+fi
+echo "{\"id\":\"log_$(date +%s)_node_check\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:6\",\"message\":\"Initial node check\",\"data\":{\"nodeFound\":\"$NODE_FOUND\"},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+# #endregion
+
+if [ "$NODE_FOUND" = "no" ]; then
+  # Get Windows username (works in Git Bash)
+  WIN_USER=$(whoami 2>/dev/null || echo "$USERNAME" || echo "$USER")
+  
+  # Try common Node.js installation locations on Windows (handle paths with spaces)
+  # #region agent log
+  echo "{\"id\":\"log_$(date +%s)_searching_node\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:25\",\"message\":\"Searching for Node.js\",\"data\":{\"winUser\":\"$WIN_USER\"},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+  # #endregion
+  
+  # Check each path individually (properly quoted for spaces)
+  for NODE_DIR in "/c/Program Files/nodejs" "/c/Program Files (x86)/nodejs" "/c/Program Files/FW Packages" "/c/Users/$WIN_USER/AppData/Local/Programs/nodejs"; do
+    if [ -f "$NODE_DIR/node.exe" ] || [ -f "$NODE_DIR/node" ]; then
+      export PATH="$NODE_DIR:$PATH"
+      # #region agent log
+      echo "{\"id\":\"log_$(date +%s)_node_found\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:32\",\"message\":\"Node.js found and added to PATH\",\"data\":{\"nodeDir\":\"$NODE_DIR\"},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+      # #endregion
+      break
+    fi
+  done
+  
+  # If still not found, try using pnpm exec (pnpm should have Node.js)
+  if ! which node > /dev/null 2>&1; then
+    # #region agent log
+    echo "{\"id\":\"log_$(date +%s)_trying_pnpm\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:30\",\"message\":\"Node.js not found, trying pnpm exec\",\"data\":{},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+    # #endregion
+    if command -v pnpm > /dev/null 2>&1; then
+      # #region agent log
+      PNPM_PATH=$(command -v pnpm)
+      echo "{\"id\":\"log_$(date +%s)_using_pnpm\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:33\",\"message\":\"Using pnpm exec\",\"data\":{\"pnpmPath\":\"$PNPM_PATH\"},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+      # #endregion
+      pnpm exec commitlint --edit "$1" 2>&1
+      EXIT_CODE=$?
+      # #region agent log
+      echo "{\"id\":\"log_$(date +%s)_pnpm_result\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:37\",\"message\":\"pnpm exec result\",\"data\":{\"exitCode\":$EXIT_CODE},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+      # #endregion
+      exit $EXIT_CODE
+    else
+      # #region agent log
+      echo "{\"id\":\"log_$(date +%s)_pnpm_not_found\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:42\",\"message\":\"pnpm not found\",\"data\":{},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+      # #endregion
+    fi
+  fi
+fi
+
+# #region agent log
+which node > /dev/null 2>&1 && FINAL_NODE_PATH=$(which node) || FINAL_NODE_PATH="NOT_FOUND"
+echo "{\"id\":\"log_$(date +%s)_before_commitlint\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:35\",\"message\":\"Before commitlint execution\",\"data\":{\"nodePath\":\"$FINAL_NODE_PATH\"},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+# #endregion
+
 npx --no -- commitlint --edit "$1"
+EXIT_CODE=$?
+
+# #region agent log
+echo "{\"id\":\"log_$(date +%s)_after_commitlint\",\"timestamp\":$(date +%s)000,\"location\":\".husky/commit-msg:40\",\"message\":\"After commitlint execution\",\"data\":{\"exitCode\":$EXIT_CODE},\"sessionId\":\"debug-session\",\"runId\":\"post-fix\",\"hypothesisId\":\"FIX\"}" >> "$LOG_FILE"
+# #endregion
+
+exit $EXIT_CODE
