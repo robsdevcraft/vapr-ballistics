@@ -53,18 +53,18 @@ vapr-ballistics/
 
 ```
 ┌─────────────────────────────────────────┐
-│         Browser (Next.js 15)            │
+│         Browser (Next.js 16)            │
 │  ┌───────────────────────────────────┐  │
 │  │   React Components (UI Layer)     │  │
 │  │  - BallisticsCalculator.tsx       │  │
 │  │  - Charts, Forms, Tables          │  │
 │  └───────────────────────────────────┘  │
-│                  ↓                       │
+│                  ↓                      │
 │  ┌───────────────────────────────────┐  │
 │  │  Custom Hooks (Business Logic)    │  │
 │  │  - useBallisticsCalculator.ts     │  │
 │  └───────────────────────────────────┘  │
-│                  ↓                       │
+│                  ↓                      │
 │  ┌───────────────────────────────────┐  │
 │  │   js-ballistics Library           │  │
 │  │   v2.2.0-beta.2 (via npm)         │  │
@@ -82,7 +82,7 @@ vapr-ballistics/
 
 #### Technology Stack
 
-- **Framework:** Next.js 15 (React 19)
+- **Framework:** Next.js 16 (React 19)
 - **Language:** TypeScript
 - **Ballistics Engine:** [js-ballistics](https://github.com/robsdevcraft/js-ballistics) v2.2.0-beta.2
 - **Styling:** Tailwind CSS + shadcn/ui components
@@ -108,7 +108,7 @@ No server communication - all calculations happen in-memory.
 ```
 ┌────────────────────────┐
 │   Frontend (React)     │
-│  - Next.js 14          │
+│  - Next.js 16          │
 │  - Ballistics UI       │
 │  - API Client          │
 └────────────────────────┘
@@ -189,20 +189,20 @@ Display results in UI
 
 | Category       | Technology                 | Purpose                            |
 | -------------- | -------------------------- | ---------------------------------- |
-| **Framework**  | Next.js 15                 | React framework with static export |
+| **Framework**  | Next.js 16                 | React framework with static export |
 | **Ballistics** | js-ballistics 2.2.0-beta.2 | Pure JS/TS ballistics calculations |
 | **Charts**     | Recharts                   | Trajectory visualization           |
 | **Theme**      | next-themes                | Dark/light mode                    |
 
 #### fastapi-fullstack
 
-| Category       | Technology              | Purpose                               |
-| -------------- | ----------------------- | ------------------------------------- |
-| **Backend**    | FastAPI                 | High-performance Python API framework |
+| Category       | Technology                    | Purpose                               |
+| -------------- | ----------------------------- | ------------------------------------- |
+| **Backend**    | FastAPI                       | High-performance Python API framework |
 | **Ballistics** | py-ballisticcalc 2.2.6.post1+ | Python ballistics engine              |
-| **Server**     | Uvicorn                 | ASGI server                           |
-| **Frontend**   | Next.js 14              | React frontend for API consumption    |
-| **Container**  | Docker                  | Isolated deployments                  |
+| **Server**     | Uvicorn                       | ASGI server                           |
+| **Frontend**   | Next.js 14                    | React frontend for API consumption    |
+| **Container**  | Docker                        | Isolated deployments                  |
 
 ---
 
@@ -352,7 +352,7 @@ graph TD
 │  │  (Next.js)   │  │  (FastAPI)   │ │
 │  │  Port 3000   │  │  Port 8000   │ │
 │  └──────────────┘  └──────────────┘ │
-│         ↓                  ↓         │
+│         ↓                  ↓        │
 │  ┌────────────────────────────────┐ │
 │  │      Nginx (Reverse Proxy)     │ │
 │  │         Port 80/443            │ │
