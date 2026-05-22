@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "clean": "rm -rf .next node_modules"
+    "clean": "node -e \"['.next','node_modules'].forEach((p)=>require('fs').rmSync(p,{recursive:true,force:true}))\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

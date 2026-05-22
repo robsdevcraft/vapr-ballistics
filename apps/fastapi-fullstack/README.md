@@ -49,7 +49,7 @@ npm run dev
 ```bash
 # From the docker directory
 cd docker
-docker-compose -f docker-compose.dev.yml up --build
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 **Access:**
@@ -62,7 +62,7 @@ docker-compose -f docker-compose.dev.yml up --build
 
 ```bash
 cd docker
-docker-compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 **Note**: Update environment variables in `docker-compose.prod.yml` for your domain.

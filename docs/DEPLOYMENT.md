@@ -114,7 +114,7 @@ Then deploy the `out` directory like the landing page.
 
 ```bash
 cd apps/fastapi-fullstack/docker
-docker-compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 **Environment Variables:**
@@ -254,7 +254,7 @@ vercel --prod
 **Deploy FastAPI fullstack:**
 ```bash
 cd apps/fastapi-fullstack/docker
-docker-compose -f docker-compose.prod.yml up -d
+docker compose -f docker-compose.prod.yml up -d
 ```
 
 ---

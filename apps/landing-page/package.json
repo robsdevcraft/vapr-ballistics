@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
-    "clean": "rm -rf .next out"
+    "clean": "node -e \"['.next','out'].forEach((p)=>require('fs').rmSync(p,{recursive:true,force:true}))\""
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",

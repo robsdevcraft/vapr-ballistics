@@ -101,7 +101,7 @@ pnpm dev
 
 ```bash
 cd apps/fastapi-fullstack/docker
-docker-compose -f docker-compose.dev.yml up --build
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 **Access:**
@@ -159,7 +159,7 @@ pnpm --filter @vapr/js-client dev
 
 ```bash
 cd apps/fastapi-fullstack/docker
-docker-compose -f docker-compose.dev.yml up --build
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 **Build All Apps:**
