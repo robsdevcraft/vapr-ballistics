@@ -2,7 +2,7 @@
 
 # VAPR Ballistics
 
-**Free and open-source ballistics calculators.** Privacy-first, actively developed, always free.
+**Open-source Ballistics Calculator.** Privacy-first, ongoing development, always free.
 
 ## 📦 Monorepo Structure
 
