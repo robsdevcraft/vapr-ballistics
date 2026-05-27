@@ -13,6 +13,7 @@
     "test": "turbo run test"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "turbo": "^2.9.14"
@@ -24,7 +25,18 @@
   },
   "pnpm": {
     "overrides": {
-      "js-yaml@>=4.0.0 <4.1.1": ">=4.1.1"
+      "@eslint/config-array@0.21.1>minimatch": "3.1.5",
+      "@eslint/eslintrc@3.3.1>ajv": "6.14.0",
+      "@eslint/eslintrc@3.3.1>minimatch": "3.1.5",
+      "@tailwindcss/postcss@4.1.16>postcss": "8.5.10",
+      "ajv": "6.14.0",
+      "brace-expansion": "1.1.14",
+      "flat-cache@4.0.1>flatted": "3.4.2",
+      "flatted": "3.4.2",
+      "js-yaml@>=4.0.0 <4.1.1": ">=4.1.1",
+      "minimatch": "3.1.5",
+      "next@16.2.6>postcss": "8.5.10",
+      "postcss": "8.5.10"
     }
   }
 }
