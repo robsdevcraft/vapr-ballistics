@@ -9,6 +9,7 @@ import {
   Line,
   XAxis,
   YAxis,
+  ReferenceLine,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
@@ -172,6 +173,35 @@ export default function BallisticsCalculator() {
     }));
   };
 
+  // Windage chart uses a top-down style: X = windage, Y = distance.
+  const formatWindageChartData = () => {
+    const data = [...formatChartData()].sort((a, b) => a.distance - b.distance);
+    if (data.length === 0) return [];
+
+    const startsAtOrigin = data[0].distance === 0 && data[0].windage === 0;
+    if (startsAtOrigin) return data;
+
+    return [{ ...data[0], distance: 0, windage: 0 }, ...data];
+  };
+
+  const getWindageDomainMax = () => {
+    const chartData = formatWindageChartData();
+    const maxAbsWindage = Math.max(...chartData.map((point) => Math.abs(point.windage)), 0);
+    const paddedMax = maxAbsWindage + 3;
+    return Math.ceil(paddedMax * 2) / 2;
+  };
+
+  const getWindageTicks = () => {
+    const max = getWindageDomainMax();
+    const ticks: number[] = [];
+
+    for (let tick = -max; tick <= max + 0.0001; tick += 0.5) {
+      ticks.push(Number(tick.toFixed(1)));
+    }
+
+    return ticks;
+  };
+
   // Export trajectory data to CSV
   const exportToCSV = () => {
     if (!results?.trajectory) return;
@@ -227,7 +257,7 @@ export default function BallisticsCalculator() {
 
   return (
     <div className="bg-background min-h-screen p-4">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-460">
         {/* Header with Theme Toggle */}
         <div className="mb-8 flex items-start justify-between">
           <header className="flex-1 text-center">
@@ -659,176 +689,134 @@ export default function BallisticsCalculator() {
                   </Card>
                 </div>
 
-                {/* Trajectory Charts with Tabs */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Trajectory Charts</CardTitle>
-                    <CardDescription>
-                      View bullet drop and windage adjustments over distance (Windage: R = Adjust
-                      Right, L = Adjust Left)
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Tabs defaultValue="combined" className="w-full">
-                      <TabsList className="grid w-full grid-cols-3">
-                        <TabsTrigger value="combined">Both</TabsTrigger>
-                        <TabsTrigger value="drop">Elevation</TabsTrigger>
-                        <TabsTrigger value="windage">Windage</TabsTrigger>
-                      </TabsList>
+                {/* Trajectory Charts */}
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Elevation</CardTitle>
+                      <CardDescription>
+                        Bullet drop adjustment over distance
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={400}>
+                        <LineChart
+                          data={formatChartData()}
+                          margin={{ top: 5, right: 30, left: 20, bottom: 70 }}
+                        >
+                          <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+                          <XAxis
+                            dataKey="distance"
+                            label={{
+                              value: "Distance (yards)",
+                              position: "insideBottom",
+                              offset: -10,
+                              fill: axisColor,
+                            }}
+                            tick={{ fill: axisColor }}
+                          />
+                          <YAxis
+                            label={{
+                              value: "Drop (mils)",
+                              angle: -90,
+                              position: "insideLeft",
+                              fill: axisColor,
+                            }}
+                            tick={{ fill: axisColor }}
+                          />
+                          <Tooltip
+                            formatter={(value) => [Number(value).toFixed(2), "Drop (mils)"]}
+                            contentStyle={tooltipStyle}
+                            itemStyle={tooltipItemStyle}
+                            labelStyle={tooltipLabelStyle}
+                          />
+                          <Line
+                            type="monotone"
+                            dataKey="drop"
+                            stroke="var(--foreground)"
+                            strokeWidth={2}
+                            name="Drop (mils)"
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
 
-                      {/* Combined Chart */}
-                      <TabsContent value="combined" className="mt-4">
-                        <ResponsiveContainer width="100%" height={400}>
-                          <LineChart
-                            data={formatChartData()}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 70 }}
-                          >
-                            <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
-                            <XAxis
-                              dataKey="distance"
-                              label={{
-                                value: "Distance (yards)",
-                                position: "insideBottom",
-                                offset: -10,
-                                fill: axisColor,
-                              }}
-                              tick={{ fill: axisColor }}
-                            />
-                            <YAxis
-                              label={{
-                                value: "Adjustment (mils)",
-                                angle: -90,
-                                position: "insideLeft",
-                                fill: axisColor,
-                              }}
-                              tick={{ fill: axisColor }}
-                            />
-                            <Tooltip
-                              formatter={(value, name) => [Number(value).toFixed(2), name]}
-                              contentStyle={tooltipStyle}
-                              itemStyle={tooltipItemStyle}
-                              labelStyle={tooltipLabelStyle}
-                            />
-                            <Line
-                              type="monotone"
-                              dataKey="drop"
-                              stroke="var(--foreground)"
-                              strokeWidth={2}
-                              name="Drop (mils)"
-                            />
-                            <Line
-                              type="monotone"
-                              dataKey="windage"
-                              stroke="var(--foreground)"
-                              strokeWidth={2}
-                              name="Windage (mils)"
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </TabsContent>
-
-                      {/* Drop Only Chart */}
-                      <TabsContent value="drop" className="mt-4">
-                        <ResponsiveContainer width="100%" height={400}>
-                          <LineChart
-                            data={formatChartData()}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 70 }}
-                          >
-                            <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
-                            <XAxis
-                              dataKey="distance"
-                              label={{
-                                value: "Distance (yards)",
-                                position: "insideBottom",
-                                offset: -10,
-                                fill: axisColor,
-                              }}
-                              tick={{ fill: axisColor }}
-                            />
-                            <YAxis
-                              label={{
-                                value: "Drop (mils)",
-                                angle: -90,
-                                position: "insideLeft",
-                                fill: axisColor,
-                              }}
-                              tick={{ fill: axisColor }}
-                            />
-                            <Tooltip
-                              formatter={(value) => [Number(value).toFixed(2), "Drop (mils)"]}
-                              contentStyle={tooltipStyle}
-                              itemStyle={tooltipItemStyle}
-                              labelStyle={tooltipLabelStyle}
-                            />
-                            <Line
-                              type="monotone"
-                              dataKey="drop"
-                              stroke="var(--foreground)"
-                              strokeWidth={2}
-                              name="Drop (mils)"
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </TabsContent>
-
-                      {/* Windage Only Chart */}
-                      <TabsContent value="windage" className="mt-4">
-                        <ResponsiveContainer width="100%" height={400}>
-                          <LineChart
-                            data={formatChartData()}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 70 }}
-                          >
-                            <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
-                            <XAxis
-                              dataKey="distance"
-                              label={{
-                                value: "Distance (yards)",
-                                position: "insideBottom",
-                                offset: -10,
-                                fill: axisColor,
-                              }}
-                              tick={{ fill: axisColor }}
-                            />
-                            <YAxis
-                              label={{
-                                value: "Windage (Mils L/R)",
-                                angle: -90,
-                                position: "insideLeft",
-                                fill: axisColor,
-                              }}
-                              tick={{ fill: axisColor }}
-                              tickFormatter={(value) => {
-                                const absValue = Math.abs(value);
-                                if (absValue === 0) return "0";
-                                return value > 0
-                                  ? `${absValue.toFixed(1)} R`
-                                  : `${absValue.toFixed(1)} L`;
-                              }}
-                            />
-                            <Tooltip
-                              formatter={(value: number) => {
-                                const absValue = Math.abs(value);
-                                if (absValue === 0) return ["0 mils", "Adjustment"];
-                                const direction = value > 0 ? "R" : "L";
-                                return [`${absValue.toFixed(2)} mils ${direction}`, "Adjustment"];
-                              }}
-                              contentStyle={tooltipStyle}
-                              itemStyle={tooltipItemStyle}
-                              labelStyle={tooltipLabelStyle}
-                            />
-                            <Line
-                              type="monotone"
-                              dataKey="windage"
-                              stroke="var(--foreground)"
-                              strokeWidth={2}
-                              name="Windage (mils)"
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </TabsContent>
-                    </Tabs>
-                  </CardContent>
-                </Card>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Windage</CardTitle>
+                      <CardDescription>
+                        Wind drift view (X = windage, Y = distance)
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={400}>
+                        <LineChart
+                          data={formatWindageChartData()}
+                          layout="vertical"
+                          margin={{ top: 20, right: 30, left: 40, bottom: 40 }}
+                        >
+                          <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+                          <ReferenceLine x={0} stroke={axisColor} strokeDasharray="4 4" />
+                          <XAxis
+                            type="number"
+                            dataKey="windage"
+                            domain={[-getWindageDomainMax(), getWindageDomainMax()]}
+                            ticks={getWindageTicks()}
+                            interval={0}
+                            label={{
+                              value: "Windage (mils)",
+                              position: "insideBottom",
+                              offset: -5,
+                              fill: axisColor,
+                            }}
+                            tickFormatter={(value) => {
+                              const absValue = Math.abs(value);
+                              if (absValue === 0) return "0";
+                              return value > 0
+                                ? `${absValue.toFixed(1)} R`
+                                : `${absValue.toFixed(1)} L`;
+                            }}
+                            tick={{ fill: axisColor }}
+                          />
+                          <YAxis
+                            type="number"
+                            dataKey="distance"
+                            domain={[0, "dataMax"]}
+                            reversed
+                            label={{
+                              value: "Distance (yards)",
+                              angle: -90,
+                              position: "insideLeft",
+                              fill: axisColor,
+                            }}
+                            tick={{ fill: axisColor }}
+                          />
+                          <Tooltip
+                            formatter={(value: number, _name, item) => {
+                              const absValue = Math.abs(value);
+                              const direction = value > 0 ? "R" : value < 0 ? "L" : "";
+                              const windage =
+                                absValue === 0 ? "0 mils" : `${absValue.toFixed(2)} mils ${direction}`;
+                              return [windage, `Windage @ ${item.payload.distance.toFixed(0)} yd`];
+                            }}
+                            contentStyle={tooltipStyle}
+                            itemStyle={tooltipItemStyle}
+                            labelStyle={tooltipLabelStyle}
+                          />
+                          <Line
+                            type="monotone"
+                            dataKey="windage"
+                            stroke="var(--foreground)"
+                            strokeWidth={2}
+                            name="Windage (mils)"
+                            dot={false}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                </div>
 
                 {/* Trajectory Table */}
                 <Card>
