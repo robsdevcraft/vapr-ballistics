@@ -7,10 +7,16 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
     "clean": "turbo run clean",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "dev:client": "pnpm --filter @vapr/js-client dev",
+    "build:client": "pnpm --filter @vapr/js-client build",
+    "lint:client": "pnpm --filter @vapr/js-client lint",
+    "typecheck:client": "pnpm --filter @vapr/js-client typecheck",
+    "test:client": "pnpm --filter @vapr/js-client test"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

@@ -1,3 +1,12 @@
+# =============================================================================
+# WIP BOILERPLATE — NOT FUNCTIONAL. DO NOT USE YET.
+#
+# This Dockerfile is a placeholder. It assumes npm + Next.js standalone output,
+# but the repo uses pnpm and is migrating to TanStack Start (see docs/plan.md).
+# It WILL fail to build as-is. A real container is delivered in Phase 7
+# (docs/specs/0008-deploy-docker.md), generated from a Nitro node-server preset.
+# =============================================================================
+
 FROM node:18-alpine AS base
 
 # Install dependencies only when needed

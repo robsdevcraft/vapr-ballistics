@@ -242,7 +242,7 @@ These are **intentional design decisions**, not security issues:
 
 For security concerns **only**:
 
-**📧 Email:** [rob@devcrafted.io](mailto:rob@devcrafted.io)
+**📧 Email:** [contact@robsdevcraft.com](mailto:contact@robsdevcraft.com)
 
 **PGP Key:** (Coming soon)
 

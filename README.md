@@ -50,18 +50,6 @@ pnpm dev
 - **UI**: Shadcn/ui with Tailwind CSS v4
 - **Charts**: Recharts for trajectory visualization
 - **Deployment**: Static export, CDN-ready
-
----
-
-### 2. JS Client (`apps/js-client/`)
-
-**Pure client-side ballistics calculator** - No backend required!
-
-- **Framework**: Next.js 15 with React 19
-- **Ballistics Engine**: [js-ballistics](https://www.npmjs.com/package/js-ballistics) v2.2.0-beta.2
-- **UI**: Shadcn/ui with Tailwind CSS v4
-- **Charts**: Recharts for trajectory visualization
-- **Deployment**: Static export, CDN-ready
 - **Port**: 3000
 
 **Use Cases:**

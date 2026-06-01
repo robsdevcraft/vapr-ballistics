@@ -4,7 +4,14 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**", "build/**"]
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        ".output/**",
+        ".nitro/**",
+        "dist/**",
+        "build/**"
+      ]
     },
     "dev": {
       "cache": false,
@@ -12,6 +19,9 @@
     },
     "lint": {
       "dependsOn": ["^lint"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
     },
     "clean": {
       "cache": false
